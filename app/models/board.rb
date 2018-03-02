@@ -2,29 +2,27 @@ class Board < ApplicationRecord
   attr_accessor
   serialize :board_game, Array
 
-  def initialize
-    @board_game = []
+  def set_board
+    self.board_game =
+    [
+      [ 'rook|white', 'knight|white', 'bishop|white', 'queen|white', 'king|white', 'bishop|white', 'knight|white', 'rook|white' ],
+      [ 'pawn|white', 'pawn|white',   'pawn|white',   'pawn|white',  'pawn|white', 'pawn|white',   'pawn|white',   'pawn|white' ],
+      [  nil,          nil,            nil,            nil,           nil,          nil,            nil,            nil         ],
+      [  nil,          nil,            nil,            nil,           nil,          nil,            nil,            nil         ],
+      [  nil,          nil,            nil,            nil,           nil,          nil,            nil,            nil         ],
+      [  nil,          nil,            nil,            nil,           nil,          nil,            nil,            nil         ],
+      [ 'pawn|black', 'pawn|black',   'pawn|black',   'pawn|black',  'pawn|black', 'pawn|black',   'pawn|black',   'pawn|black' ],
+      [ 'rook|black', 'knight|black', 'bishop|black', 'queen|black', 'king|black', 'bishop|black', 'knigh|blackt', 'rook|black' ]
+    ]
+    save!
   end
 
-  def build_board
-    letters = [ "a", "b", "c", "d", "e", "f", "g", "h" ]
-    numbers = [ "1", "2", "3", "4", "5", "6", "7", "8" ]
-
-    # board_game[0]["a1"]
-    # => we want
-    # [ 
-    # {
-    # "a1"=> ""
-    # "b1"=> ""
-    # "c1"=> ""
-    #  ...
-    # "h1" => ""
-    # }  
-    # ]
-    letters.each do |letter|
-      numbers.each do |number|
-        @board_game << {"#{letter}#{number}" => ""}
-      end
+  def at(row, col)
+    if board_game[row][col]
+      type, color = board_game[row][col].split('|')
+    else
+      nil
     end
   end
+
 end
