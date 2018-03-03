@@ -1,4 +1,15 @@
 <h1>Gooday to ya mate!</h1>
-<h1>test</h1>
+
 
 <%= link_to "New Game", new_game_path %>
+
+<% @games.each do |game| %>
+<div class="booyah-box col-10 offset-1">
+  <div>
+    <%= link_to game.game_name, game_path(game.id) %></h1><br />
+  </div>
+
+  <hr />
+</div>
+<% end %>
+
