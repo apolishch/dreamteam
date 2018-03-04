@@ -1,9 +1,8 @@
 class Board < ApplicationRecord
-  attr_accessor
-  serialize :board_game, Array
+  serialize :game_board, Array
 
   def set_board
-    self.board_game =
+    self.game_board =
     [
       [ 'rook|white', 'knight|white', 'bishop|white', 'queen|white', 'king|white', 'bishop|white', 'knight|white', 'rook|white' ],
       [ 'pawn|white', 'pawn|white',   'pawn|white',   'pawn|white',  'pawn|white', 'pawn|white',   'pawn|white',   'pawn|white' ],
@@ -18,8 +17,8 @@ class Board < ApplicationRecord
   end
 
   def at(row, col)
-    if board_game[row][col]
-      type, color = board_game[row][col].split('|')
+    if game_board[row][col]
+      type, color = game_board[row][col].split('|')
     else
       nil
     end
