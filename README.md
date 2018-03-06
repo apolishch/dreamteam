@@ -2,10 +2,10 @@
 
 **Deployed here** - [Dreamteam Chess](https://dreamteam-chess.herokuapp.com/)
 
-##Project information:
+## Project information:
 A collab web app built as part of the [Firehose Project](https://thefirehoseproject.com/) course.
 
-###Team:
+### Team:
 * [Jay Johnson](https://github.com/jayj10080)
 * [Hans Hanken](https://github.com/hanshank)
 * [Zac Jones](https://github.com/zacjones93)
