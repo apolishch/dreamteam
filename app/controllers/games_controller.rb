@@ -1,9 +1,13 @@
 class GamesController < ApplicationController	
   before_action :authenticate_user!, only: [:show, :new, :create]
 
+  def home
+  end
+
   def index	
     @games = Game.all
-    
+    # @singleplayer = Game.where(opponent_id: nil)
+    @singleplayer = Game.where(:opponent_id => nil)
   end	
 
   def show

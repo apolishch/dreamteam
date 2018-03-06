@@ -1,12 +1,11 @@
-<div class="booyah-box col-10 offset-1">
-  <h1>Join a Game</h1>
-  <h6>See a list of all games</h6>
-  <%= image_tag "image1.jpg", class: "image-resize" %>
-  
-  <hr />
-  <div>
-    
-  </div>
-</div>
+<h1>index page</h1>
+
+<% @games.each do |game| %>
+  <%= game.game_name %>
+<% end %>
+
+<% @singleplayer.each do |single| %>
+ <%= single.game_name %>
+<% end %>
 
 
