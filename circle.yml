@@ -1,6 +1,6 @@
 deployment:
   prod:
-    branch: master
+    branch: circle-CI-setup
     heroku:
       appname: dreamteam-chess
     database:
