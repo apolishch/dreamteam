@@ -1,3 +1,27 @@
-// Place all the styles related to the places controller here.	
-// They will automatically be included in application.css.	
+// Place all the styles related to the places controller here.
+// They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.square {
+  width: 100px;
+  height: 100px;
+}
+.light {
+  background: #FFFFC9;
+}
+.dark {
+  background: #661A1A;
+}
+.padding {
+  padding: 30px;
+}
+.title {
+  text-align: center;
+  font-family: Arial;
+}
+.board {
+  border: 5px solid brown;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
