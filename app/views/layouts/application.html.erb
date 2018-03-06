@@ -6,9 +6,48 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
   </head>
 
   <body>
+
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <%= link_to 'Chess', root_path, class: 'navbar-brand' %>
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+          <li class="nav-item">
+            <%= link_to new_game_path, class: 'nav-link' do %>
+              <i class="fa fa-chess-knight"></i>
+               New Game
+            <% end %>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %>
+            </li>
+          <% end %>
+        </ul>
+
+      </div>
+    </nav>
+
     <% if notice.present? %>
       <p class="alert alert-info"><%= notice %></p>
     <% end %>
