@@ -1,0 +1,2 @@
+class ChessPiece < ApplicationRecord
+end

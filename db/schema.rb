@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180306180209) do
     t.datetime "updated_at",  null: false
     t.string   "locations"
     t.integer  "winner_id"
+
   end
 
   create_table "users", force: :cascade do |t|
