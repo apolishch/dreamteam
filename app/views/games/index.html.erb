@@ -1,1 +1,11 @@
-<h1>Gooday to ya mate!</h1>
+<h1>index page</h1>
+
+<% @games.each do |game| %>
+  <%= game.game_name %>
+<% end %>
+
+<% @singleplayer.each do |single| %>
+ <%= single.game_name %>
+<% end %>
+
+
