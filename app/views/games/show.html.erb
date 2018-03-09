@@ -85,3 +85,11 @@
   </tr>
 </table>
 </div>
+
+<% if current_user == @game.user_id %>
+<!-- You can move white pieces -->
+<% end %>
+
+<% if current_user == @game.opponent_id %>
+<!-- You can move black pieces -->
+<% end %>
