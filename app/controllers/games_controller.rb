@@ -5,8 +5,7 @@ class GamesController < ApplicationController
   end
 
   def index	
-    @games = Game.all
-    # @singleplayer = Game.where(opponent_id: nil)
+    @games = Game.where.not(:opponent_id => nil)
     @singleplayer = Game.where(:opponent_id => nil)
   end	
 

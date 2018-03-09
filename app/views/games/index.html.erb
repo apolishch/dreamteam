@@ -1,11 +1,21 @@
 <h1>index page</h1>
 
-<% @games.each do |game| %>
-  <%= game.game_name %>
-<% end %>
 
+<h3>Join Game</h3>
+<ul>
 <% @singleplayer.each do |single| %>
- <%= single.game_name %>
+ <li><%= link_to single.game_name, game_path(single.id) %></li>
 <% end %>
+</ul>
+
+<hr>
+
+<h3>Games currently being played</h3>
+<ul>
+<% @games.each do |game| %>
+  <li><%=link_to game.game_name, game_path(game.id) %></li>
+<% end %>
+</ul>
+
 
 
