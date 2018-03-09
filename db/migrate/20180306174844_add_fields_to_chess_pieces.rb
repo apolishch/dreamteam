@@ -1,11 +1,9 @@
 class AddFieldsToChessPieces < ActiveRecord::Migration[5.0]
   def change
-    create_table :chess_pieces do |t|
-    t.integer :game_id
-    t.integer :x_position
-    t.integer :y_position
-    t.boolean :checked
-    t.boolean :promotable
-    end
+    add_column :chess_pieces, :game_id, :integer
+    add_column :chess_pieces, :x_position, :integer
+    add_column :chess_pieces, :y_position, :integer
+    add_column :chess_pieces, :checked, :boolean
+    add_column :chess_pieces, :promotable, :boolean
   end
 end
