@@ -38,7 +38,7 @@ class Game < ApplicationRecord
   end
   
   def populate_board
-    @chess_board = [[@black_rook_1, @black_knight_1, @black_bishop_1, @black_queen, @black_king, @black_bishop_2, @black_knight_2, @black_rook_2], 
+    self.locations = [[@black_rook_1, @black_knight_1, @black_bishop_1, @black_queen, @black_king, @black_bishop_2, @black_knight_2, @black_rook_2], 
     [@black_pawn_1, @black_pawn_2, @black_pawn_3, @black_pawn_4, @black_pawn_5, @black_pawn_6, @black_pawn_7, @black_pawn_8],
     [nil, nil, nil, nil, nil, nil, nil, nil],
     [nil, nil, nil, nil, nil, nil, nil, nil],
