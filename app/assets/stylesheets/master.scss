@@ -16,8 +16,22 @@
 .image-resize {
   width: 300px;
   height: auto;
+  display:block;
+  margin:auto;
 }
 
 .home-div {
   width: 400px
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 70px;
+}
+
+.button {
+  text-align: center;
 }
