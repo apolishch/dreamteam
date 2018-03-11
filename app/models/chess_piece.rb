@@ -1,15 +1,14 @@
 class ChessPiece < ApplicationRecord
 
-  # Obstructed means that another piece is in the spot the piece is trying to move to
-
   def is_obstructed?(x, y)
-
-    board = @board
-    target_value = board[x][y]
-
-    # target => where the piece is trying to move
-    if target_value > nil # target is populated with a piece
-      true
+    if (x == self.x_position) && (y == self.y_position) # If the piece is trying to be moved to it's current position
+      false
+    elsif y == self.y_position # If target is located vertically, meaning on the same column as current position
+      !self.game.pieces.select {|piece| (piece.y_position == y) && piece.x_position.between?(x, x_position)}.empty?
+    elsif (x - self.x_position).abs == (y-self.y_position).abs # If target is located diagonally from starting position
+      !self.game.pieces.select {|piece| (x - piece.x_position).abs == (y - piece.y_position).abs}.empty?
+    elsif x == self.x_position # If target is located horizontally - Same row
+      !self.game.pieces.select {|piece| (piece.x_position == x) && piece.y_position.between?(y, y_position)}.empty?
     else
       false
     end
