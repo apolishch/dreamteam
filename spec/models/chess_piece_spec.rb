@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe ChessPiece, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  it "Checks if piece is obstructed on a move. Should return true if obstructed and false if not" do
+    
+  end
+
 end
