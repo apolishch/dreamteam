@@ -4,84 +4,84 @@
   <h1 class="title">Chess Board</h1>
 <table class="board">
   <tr>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
+    <td class="square light"><%= @black_rook_1.icon %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 0) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 0) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 0) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 0) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 0) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 0) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 0) %></td>
   </tr>
   <tr>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 1) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 1) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 1) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 1) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 1) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 1) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 1) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 1) %></td>
   </tr>
   <tr>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 2) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 2) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 2) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 2) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 2) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 2) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 2) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 2) %></td>
   </tr>
   <tr>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 3) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 3) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 3) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 3) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 3) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 3) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 3) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 3) %></td>
   </tr>
   <tr>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 4) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 4) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 4) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 4) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 4) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 4) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 4) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 4) %></td>
   </tr>
   <tr>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 5) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 5) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 5) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 5) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 5) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 5) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 5) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 5) %></td>
   </tr>
   <tr>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 6) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 6) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 6) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 6) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 6) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 6) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 6) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 6) %></td>
   </tr>
   <tr>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 7) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 7) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 7) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 7) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 7) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 7) %></td>
+    <td class="square dark"><%= ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 7) %></td>
+    <td class="square light"><%= ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 7) %></td>
   </tr>
 </table>
 </div>
