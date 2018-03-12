@@ -1,6 +1,6 @@
 deployment:
   prod:
-    branch: circle-CI-setup
+    branch: master
     heroku:
       appname: dreamteam-chess
     database:
@@ -10,5 +10,4 @@ deployment:
         - bundle exec rake db:migrate RAILS_ENV=test
     commands:
       - git push git@heroku.com:dreamteam-chess.git $CIRCLE_SHA1:refs/heads/master
-      - heroku run rake db:migrate --app dreamteam-chess
-      - heroku restart
+      - heroku run "rake db:migrate" --app dreamteam-chess
