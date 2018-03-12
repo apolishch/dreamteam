@@ -4,7 +4,9 @@
 <h3>Join Game</h3>
 <ul>
 <% @singleplayer.each do |single| %>
- <li><%= link_to single.game_name, game_path(single.id) %></li>
+ <li>
+     <h1><%= single.game_name %></h1>
+     <%= link_to 'Join', game_path(single.id), method: :put %></li>
 <% end %>
 </ul>
 
