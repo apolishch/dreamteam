@@ -11,6 +11,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by_id(params[:id])
+    puts @game
     if @game.blank?
       render plain: 'Not Found :(', status: :not_found
     end
@@ -29,6 +30,7 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
+    
   end
 
   def create
