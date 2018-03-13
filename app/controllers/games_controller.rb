@@ -11,13 +11,26 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by_id(params[:id])
+    puts @game
     if @game.blank?
       render plain: 'Not Found :(', status: :not_found
     end
   end
+  
+  def update
+    @game = Game.find_by_id(params[:id])
+    if @game.opponent_id.nil?
+      @game.update_attributes(opponent_id: current_user.id)
+      redirect_to game_path(@game)
+    else
+      render plain: 'Couldn\'t join the game. Please try another game', status: :unprocessable_entity
+    end
+  end
+    
 
   def new
     @game = Game.new
+    
   end
 
   def create
@@ -32,7 +45,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:game_name)
+    params.require(:game).permit(:game_name, :opponent_id)
   end
 end
 

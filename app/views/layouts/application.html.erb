@@ -47,16 +47,25 @@
 
       </div>
     </nav>
-
-    <% if notice.present? %>
-      <p class="alert alert-info"><%= notice %></p>
-    <% end %>
-    
-    <% if alert.present? %>
-      <p class="alert alert-warning"><%= alert %></p>
-    <% end %>
+    <div class="container">
+      <br />
+      <% if notice.present? %>
+        <p class="alert alert-info"><%= notice %></p>
+      <% end %>
+      
+      <% if alert.present? %>
+        <p class="alert alert-warning"><%= alert %></p>
+      <% end %>
+      <br />
+    </div>
     
     <%= yield %>
-    
+
+    <br />
+    <footer class="footer">
+      <%= link_to "GitHub Repo", "https://github.com/apolishch/dreamteam" %>
+      <p>&copy; Dreamteam - <%= Date.today.year %></p>
+    </footer>
+
   </body>
 </html>

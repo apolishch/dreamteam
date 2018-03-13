@@ -1,87 +1,282 @@
 <h1><%= @game.game_name %></h1>
+<h2><%= "White Pieces: #{@game.user_id}" %></h2>
+<h2><%= "Black Pieces: #{@game.opponent_id}" %></h2>
 
 <div class="padding">
   <h1 class="title">Chess Board</h1>
+
 <table class="board">
   <tr>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 0)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 0)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 0)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 0)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 0)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 0)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 0)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 0)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
   </tr>
   <tr>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 1)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 1)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 1)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 1)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 1)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 1)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 1)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 1)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
   </tr>
   <tr>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 2)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 2)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 2)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 2)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 2)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 2)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 2)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 2)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
   </tr>
   <tr>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 3)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 3)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 3)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 3)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 3)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 3)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 3)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 3)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
   </tr>
   <tr>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 4)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 4)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 4)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 4)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 4)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 4)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 4)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 4)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
   </tr>
   <tr>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 5)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 5)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 5)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 5)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 5)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 5)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 5)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 5)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
   </tr>
   <tr>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 6)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 6)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 6)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 6)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 6)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 6)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 6)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 6)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
   </tr>
   <tr>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
-    <td class="square dark"></td>
-    <td class="square light"></td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 7)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 7)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 7)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 7)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 7)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 7)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square dark">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 7)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
+    <td class="square light">
+      <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 7)
+      piece.empty? ? "available" : piece.take.icon %>
+    </td>
   </tr>
 </table>
 </div>

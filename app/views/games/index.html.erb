@@ -1,21 +1,50 @@
-<h1>index page</h1>
+<div class="container">
+  <h1 class="text-center">Games Awaiting Opponents</h1>
+
+  <div class="row">
+    <% @singleplayer.each do |single| %>
+     <div class="booyah-box index-div">
+        <% my_string = single.user.email %>
+        <% substring = my_string[/[^@]+/] %>
+        <h3 class="text-center"><%= single.game_name %></h3>
+        <h6 class="text-center">Opponent: <%= substring %> </h6>
+        <%= image_tag "image2.jpg", class: "index-resize" %>
+        <hr />
+        <div class="button">
+          <%= link_to "Join Game", game_path(single.id), method: :put, class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <hr>
+
+  <h1 class="text-center">Games In Progress</h1>
+
+  <div class="row">
+    <% if @games.present? %>
+      <% @games.each do |game| %>
+        <div class="booyah-box index-div">
+            <% my_string = game.user.email %>
+            <% substring = my_string[/[^@]+/] %>
+            <% id = game.opponent_id %>
+            <% opponent = User.find(id) %>
+            <% my_string2 = opponent.email %>
+            <% substring2 = my_string2[/[^@]+/] %>
+            <h3 class="text-center"><%= game.game_name %></h3>
+            <h6 class="text-center"><%= substring %> VS <%= substring2 %></h6>
+            <%= image_tag "image2.jpg", class: "index-resize" %>
+            <hr />
+            <div class="button">
+              <%= link_to "Continue Game", '#', class: 'btn btn-info' %>
+            </div>
+          </div>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>
 
 
-<h3>Join Game</h3>
-<ul>
-<% @singleplayer.each do |single| %>
- <li><%= link_to single.game_name, game_path(single.id) %></li>
-<% end %>
-</ul>
-
-<hr>
-
-<h3>Games currently being played</h3>
-<ul>
-<% @games.each do |game| %>
-  <li><%=link_to game.game_name, game_path(game.id) %></li>
-<% end %>
-</ul>
 
 
-
+ 

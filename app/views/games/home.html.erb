@@ -1,19 +1,21 @@
-<div class="booyah-box col-10 offset-1 home-div">
-  <h1>Create New Game</h1>
-  <h6>Create a game and invite a friend to join</h6>
-  <%= image_tag "image1.jpg", class: "image-resize" %>
-  <hr />
-  <div>
-     <%= link_to "New Game", new_game_path, class: 'btn btn-primary' %>
+<div class="flex-container">
+  <div class="booyah-box home-div">
+    <h1 class="text-center">Create New Game</h1>
+    <h6 class="text-center">Create a game and invite a friend to join</h6>
+    <%= image_tag "image1.jpg", class: "image-resize" %>
+    <hr />
+    <div class="button">
+       <%= link_to "New Game", new_game_path, class: 'btn btn-primary' %>
+    </div>
   </div>
-</div>
 
-<div class="booyah-box col-10 offset-1 home-div">
-  <h1>Join a Game</h1>
-  <h6>See a list of all games</h6>
-  <%= image_tag "image1.jpg", class: "image-resize" %>
-  <hr />
-  <div>
-    <%= link_to "See All Games", games_path, class: 'btn btn-primary' %>
+  <div class="booyah-box home-div">
+    <h1 class="text-center">Join a Game</h1>
+    <h6 class="text-center">See a list of all games</h6>
+    <%= image_tag "image2.jpg", class: "image-resize" %>
+    <hr />
+    <div class="button">
+      <%= link_to "See All Games", games_path, class: 'btn btn-info' %>
+    </div>
   </div>
 </div>
