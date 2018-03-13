@@ -11,6 +11,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by_id(params[:id])
+    puts @game
     if @game.blank?
       render plain: 'Not Found :(', status: :not_found
     end
@@ -25,7 +26,6 @@ class GamesController < ApplicationController
     @game = current_user.games.create(game_params)
     if @game.valid?
       redirect_to game_path(@game)
-      @game.populate_board
     else
       render :new, status: :unprocessable_entity
     end
