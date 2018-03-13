@@ -1,6 +1,7 @@
 <h1 class="text-center">Games Awaiting Opponents</h1>
 
 <% @singleplayer.each do |single| %>
+
  <div class="booyah-box index-div">
     <% my_string = single.user.email %>
     <% substring = my_string[/[^@]+/] %>
@@ -9,9 +10,10 @@
     <%= image_tag "image2.jpg", class: "index-resize" %>
     <hr />
     <div class="button">
-      <%= link_to "Join Game", game_path(single.id), class: 'btn btn-primary' %>
+      <%= link_to "Join Game", game_path(single.id), method: :put, class: 'btn btn-primary' %>
     </div>
   </div>
+
 <% end %>
 
 <hr>
