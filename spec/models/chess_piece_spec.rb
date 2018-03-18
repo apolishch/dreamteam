@@ -30,5 +30,19 @@ RSpec.describe ChessPiece, type: :model do
 
   end
 
+  describe '#capture' do 
+    let(:game) {FactoryBot.create(:game)}
+    let(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, color: false, x_position: 2, y_position: 2)}
+    let(:capture_x) { 3 }
+    let(:capture_y) { 3 }
+    let(:capture_piece) {FactoryBot.create(:chess_piece, game_id: game.id, color: true, x_position: capture_x, y_position: capture_y)}
+
+    it 'does nothing if there is not a piece here' do
+      piece.capture(-100, -100)
+      expect(capture_piece).not_to be_deleted?
+    end
+
+  end
+
 
 end

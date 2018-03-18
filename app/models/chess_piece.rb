@@ -15,7 +15,40 @@ class ChessPiece < ApplicationRecord
     end
   end
 
+  def capture(x, y)
+
+    # On the ChessPiece Model, add a check for whether the target location for movement is occupied (add a move_to! method if necessary)
+
+    # If there is a piece occypying the location, and that piece has the opposite color, remove it from the game.
+
+    # There are a few ways to do this:
+
+    #     You could have a status on the pieces (e.g. onboard vs captured)
+    #     you could se the x/y coordinates to nil
+    #     You could point blank delete the piece from the database
+
+    # If the piece occupying the target location shares the color of the moving piece, the move should fail.
+
+    target_piece = ChessPiece.find_by(x_position: x, y_position: y)
+
+    return unless target_piece.present?
+    return unless piece.color != target_piece.color
+
+    target_piece.destroy!
+
+    move_to!(x, y)
+
+    # add a check for whether the target location for movement is occupied (add a move_to! method if necessary)
+    if is_occupied? && is_other_color?
+
+
+
+    end
+
+  end
+
+
 end
 
 
-#
+
