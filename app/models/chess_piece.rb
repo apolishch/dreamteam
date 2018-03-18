@@ -35,16 +35,9 @@ class ChessPiece < ApplicationRecord
     return unless piece.color != target_piece.color
 
     target_piece.destroy!
+    self.update_attributes(x_position: x, y_position: y)
 
-    move_to!(x, y)
-
-    # add a check for whether the target location for movement is occupied (add a move_to! method if necessary)
-    if is_occupied? && is_other_color?
-
-
-
-    end
-
+    # move_to!(x, y)
   end
 
 

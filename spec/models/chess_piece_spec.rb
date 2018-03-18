@@ -42,6 +42,13 @@ RSpec.describe ChessPiece, type: :model do
       expect(capture_piece).not_to be_deleted?
     end
 
+    it 'should delete target position' do
+      piece.capture(capture_x, capture_y)
+      expect(piece.x_position).to_be eql 3
+      expect(piece.y_position).to_be eql 3
+      expect(capture_piece).to_be nil
+    end
+
   end
 
 
