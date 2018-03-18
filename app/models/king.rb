@@ -4,9 +4,9 @@ class King < ChessPiece
     # return a boolean (true if move is valid, else false)
     # most pieces have two steps: 
     # (1) is the target move allowed by the game piece logic? 
-    # (2) is there an obstruction in the way? the game model
+    # (2) is there an obstruction in the way? the chess_piece model
     #     has a function that checks this:
-    #        is_move_obstructed?(piece_id, new_x, new_y)
+    #        is_obstructed?(piece_id, new_x, new_y)
 
     move_logic_is_valid = false
     if legit_moves.include? [new_x, new_y]
@@ -17,9 +17,9 @@ class King < ChessPiece
   end
 
   def legit_moves
-    piece = Piece.find(self.id)
-    x_init = piece.x_coord
-    y_init = piece.y_coord
+    piece = ChessPiece.find(self.id)
+    x_init = piece.x_position
+    y_init = piece.y_position
     
     # list of moves available to King: 
     up = [x_init, y_init + 1]
@@ -50,6 +50,6 @@ class King < ChessPiece
 
     return valid_moves 
 
-end
+  end
 
 end
