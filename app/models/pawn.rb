@@ -11,13 +11,13 @@ class Pawn < ChessPiece
   end
 
   def valid_move?(x, y)
-    if (x == self.x_position) && (y == self.y_position) # If the piece is trying to be moved to it's current position
+    if (x == self.x_position) && (y == self.y_position)
       false
-    elsif (y - self.y_position == 1) && (x - self.x_position == 0) # If target is located vertically and the target is 1 tile away
+    elsif (y - self.y_position == 1) && (x - self.x_position == 0)
       true
-    elsif ((x - self.x_position).abs == 1) && ((y - self.y_position).abs == 1) && !(x, y).empty? # If target is located diagonally from start, but only one tile away (left or right)
+    elsif ((x - self.x_position).abs == 1) && ((y - self.y_position).abs == 1) && !(x, y).empty?
       true
-    elsif (self.y_position == 2) && (y - self.y_position == 2) # change y_position to 7 if black pieces => Will allow move of two vertically if standing from starting position.
+    elsif (self.y_position == 2) && (y - self.y_position == 2)
       true
     else
       false

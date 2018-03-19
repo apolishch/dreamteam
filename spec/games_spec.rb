@@ -40,7 +40,7 @@ RSpec.describe GamesController, type: :controller do
       get :new
       expect(response).to redirect_to new_user_session_path
     end
-    
+
     it "should successfully show the new page" do
       user = FactoryBot.create(:user)
       sign_in user
@@ -63,7 +63,7 @@ RSpec.describe GamesController, type: :controller do
       sign_in user
 
       post :create, params: { game: { game_name: 'Hello!' } }
-      gameid = Game.last.id 
+      gameid = Game.last.id
       expect(response).to redirect_to game_path(gameid)
 
       game = Game.last
@@ -82,5 +82,19 @@ RSpec.describe GamesController, type: :controller do
     end
   end
 
+  context "games#update action" do
+    new_user = let(:user) { build(:user, email: 'john@doe.com') }
+    create_game = let(:user) { create(:game) }
+
+    it 'ensures that the game creator user does not become game opponent' do
+      new_user
+      sign_in user
+      create_game
+
+      put :update, params: { game: { game_name: 'hi' } }
+      expect(game.opponent_id).to eq(nil)
+    end
+
+  end
 
 end
