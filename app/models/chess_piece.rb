@@ -1,6 +1,22 @@
 class ChessPiece < ApplicationRecord
   belongs_to :game
 
+  
+  def valid_move?(x, y, color=nil)
+    if !(self.moving_on_board?(x, y))
+      return false
+    elsif self.is_obstructed?(x, y)
+      return false
+    elsif self.same_color?(color)
+      return false
+    else
+      true
+    end
+  end
+    
+  
+  
+  
   def is_obstructed?(x, y)
     if (x == self.x_position) && (y == self.y_position) # If the piece is trying to be moved to it's current position
       false
@@ -15,7 +31,12 @@ class ChessPiece < ApplicationRecord
     end
   end
 
+  def same_color?(color)
+    color == self.color
+  end
+    
+  def moving_on_board?(x, y)
+    x.between?(0, 7) && y.between?(0, 7)
+  end
+  
 end
-
-
-#
