@@ -60,22 +60,22 @@ RSpec.describe ChessPiece, type: :model do
   end
   
   
-  # this test doesn't work properly. I need to redo the test, but each method called in this method is tested above.
-  # # context '#valid_move?' do
-  # #   let(:game) {FactoryBot.create(:game)}
-  # #   let(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2, color: true)}
-  # #   it 'checks that the target location is on the board' do
-  # #     expect(piece.valid_move?(7,2, false)).to eq(true)
-  # #     expect(piece.valid_move?(4, -1, false)).to eq(false)
-  # #   end
+  #this test doesn't work properly. I need to redo the test, but each method called in this method is tested above.
+  context '#valid_move?' do
+    let(:game) {FactoryBot.create(:game)}
+    let(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2, color: true)}
+    xit 'checks that the target location is on the board' do
+      expect(piece.valid_move?(7,2, false)).to eq(true)
+      expect(piece.valid_move?(4, -1, false)).to eq(false)
+    end
     
-  # #   it 'checks that piece isn\'t obstructed' do
-  # #     piece2 = FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 3, color: false)
-  # #     expect(piece.valid_move?(2, 5)).to eq(true)
-  # #   end
+    xit 'checks that piece isn\'t obstructed' do
+      piece2 = FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 3, color: false)
+      expect(piece.valid_move?(2, 5)).to eq(true)
+    end
     
-  # #   it 'checks that the piece at target location isn\'t the same color' do
-  # #     expect(piece.valid_move?(2, 5, false)).to eq(false)
-  # #   end
-  # end
+    xit 'checks that the piece at target location isn\'t the same color' do
+      expect(piece.valid_move?(2, 5, false)).to eq(false)
+    end
+  end
 end
