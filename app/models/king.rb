@@ -1,4 +1,29 @@
 class King < ChessPiece
+  belongs_to :game
+
+  # def x_move_distance(new_x_position) # Finds the distance moved in the x axis
+  #   x_move_distance = (self.x_position - new_x_position).abs # .abs stops it from being negative
+  # end
+
+  # def y_move_distance(new_y_position) # Finds the distance moved in the y axis
+  #   y_move_distance = (self.y_position - new_y_position).abs # .abs stops it from being negative
+  # end
+
+  # # def diagonal?(x_move_distance, y_move_distance) #Checks that it is a diagonal move from the original position
+  # #   x_move_distance = y_move_distance
+  # # end
+
+  # def valid_move?(new_x_position, new_y_position)
+  #   if (new_x_position == 0 && new_y_position == 1)
+  #     true
+  #   elsif (new_x_position == 1 && new_y_position == 0)
+  #     true
+  #   elsif (new_x_position == 1 && new_y_position == 1)
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
 
   def is_move_allowed?(new_x, new_y)
     # return a boolean (true if move is valid, else false)
