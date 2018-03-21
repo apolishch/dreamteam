@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
 
-  describe "grams#show action" do
+  describe "games#show action" do
 
     it "should require users to be logged in" do
       game = FactoryBot.create(:game)
@@ -10,7 +10,7 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to new_user_session_path
     end
 
-    it "should successfully show the page if the gram is found" do
+    it "should successfully show the page if the game is found" do
       user = FactoryBot.create(:user)
       sign_in user
       game = FactoryBot.create(:game)
@@ -18,7 +18,7 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it "should return a 404 error if the gram is not found" do
+    it "should return a 404 error if the game is not found" do
       user = FactoryBot.create(:user)
       sign_in user
       get :show, params: { id: 'KWANZAA' }
@@ -82,17 +82,43 @@ RSpec.describe GamesController, type: :controller do
     end
   end
 
-  context "games#update action" do
-    new_user = let(:user) { build(:user, email: 'john@doe.com') }
-    create_game = let(:user) { create(:game) }
+  describe 'games#update action' do
 
-    it 'ensures that the game creator user does not become game opponent' do
-      new_user
-      sign_in user
-      create_game
+    context "if user tries to join his own created game" do
+      before :each do
+        @user = FactoryBot.create(:user, id: 3)
+        sign_in @user
+        @game = FactoryBot.create(:game, user_id: 3, opponent_id: nil)
+        patch :update, id: @game.id, game: { user_id: 3, opponent_id: 3 }
+      end
 
-      put :update, params: { game: { game_name: 'hi' } }
-      expect(game.opponent_id).to eq(nil)
+      it "should redirect to game" do
+        expect(response).to redirect_to game_path(@game)
+      end
+
+      it "ensure that opponent is not updated" do
+        expect(@game.opponent_id).to eq(nil)
+      end
+    end
+
+    context "If user tries to join someone else's game" do
+      before :each do
+        @user = FactoryBot.create(:user, id: 5)
+        sign_in @user
+        @user1 = FactoryBot.create(:user, id: 1)
+        sign_in @user1
+        @game = FactoryBot.create(:game, user_id: @user.id, opponent_id: nil)
+        patch :update, id: @game.id, game: { opponent_id: @user1.id }
+      end
+
+      it "should redirect_to game" do
+        expect(response).to redirect_to game_path(@game)
+      end
+
+      it "should update opponent, not game user" do
+        expect(@game.user_id).to eq(5)
+        expect(@game.opponent_id).to eq(1)
+      end
     end
 
   end
