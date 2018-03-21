@@ -32,31 +32,38 @@ RSpec.describe ChessPiece, type: :model do
 
   describe '#capture' do 
     let(:game) {FactoryBot.create(:game)}
-    let(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, color: false, x_position: 2, y_position: 2)}
+    let!(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, color: false, x_position: 2, y_position: 2)}
     let(:capture_x) { 3 }
     let(:capture_y) { 3 }
-    # Use bang to force the creation of an object, for all other objects in this case, they are created already by being
+    let(:no_opponent_x) { 5 }
+    let(:no_opponent_y) { 5 }
+    let(:no_capture_x) { 6 }
+    let(:no_capture_y) { 6 }
+    # Use bang to force the creation of an object, for all other objects in this case, they are created already by 
     # being referenced.  All relations are created automatically.
+    # Creates it before test runs
     let!(:capture_piece) {FactoryBot.create(:chess_piece, game_id: game.id, color: true, x_position: capture_x, y_position: capture_y)}
-
-    # xit 'does nothing if there is not a piece here' do
-    #   piece.capture(-100, -100)
-    #   expect(capture_piece).to be_truthy
-    # end
-
-    it 'should delete target position' do
-      piece.capture(capture_x, capture_y)
-      expect(piece.x_position).to eq(3)
-      expect(piece.y_position).to eq(3)
-      expect(ChessPiece.find_by(id: capture_piece.id)).to be_nil
+    let(:same_color) {FactoryBot.create(:chess_piece, game_id: game.id, color: false, x_position: no_capture_x, y_position: no_capture_y)}
+    
+    it 'should delete target piece and move current piece to that position ' do
+      piece.capture(capture_x, capture_y) # Capture position of opponent piece
+      expect(piece.x_position).to eq(3) # Expect current piece to move to that position
+      expect(piece.y_position).to eq(3) # Expect current piece to move to that position
+      expect(ChessPiece.find_by(id: capture_piece.id)).to be_nil # Expect opponent piece to be deleted
     end
 
-    it 'should do something' do
-
+    it 'should do nothing if there is no opponent piece' do
+      piece.capture(no_opponent_x, no_opponent_y)
+      expect(piece.x_position).to eq(2)
+      expect(piece.y_position).to eq(2)
     end
-    it 'should do something else'
 
+    it 'should do nothing if the piece you are trying to capture is the same color' do
+      # same_color
+      piece.capture(no_capture_x, no_capture_y)
+      expect(piece.x_position).to eq(2)
+      expect(piece.y_position).to eq(2)
+    end
   end
-
 
 end

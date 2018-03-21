@@ -1,80 +1,24 @@
 class King < ChessPiece
   belongs_to :game
 
-  # def x_move_distance(new_x_position) # Finds the distance moved in the x axis
-  #   x_move_distance = (self.x_position - new_x_position).abs # .abs stops it from being negative
-  # end
-
-  # def y_move_distance(new_y_position) # Finds the distance moved in the y axis
-  #   y_move_distance = (self.y_position - new_y_position).abs # .abs stops it from being negative
-  # end
-
-  # # def diagonal?(x_move_distance, y_move_distance) #Checks that it is a diagonal move from the original position
-  # #   x_move_distance = y_move_distance
-  # # end
-
-  # def valid_move?(new_x_position, new_y_position)
-  #   if (new_x_position == 0 && new_y_position == 1)
-  #     true
-  #   elsif (new_x_position == 1 && new_y_position == 0)
-  #     true
-  #   elsif (new_x_position == 1 && new_y_position == 1)
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
-
-  def is_move_allowed?(new_x, new_y)
-    # return a boolean (true if move is valid, else false)
-    # most pieces have two steps: 
-    # (1) is the target move allowed by the game piece logic? 
-    # (2) is there an obstruction in the way? the chess_piece model
-    #     has a function that checks this:
-    #        is_obstructed?(piece_id, new_x, new_y)
-
-    move_logic_is_valid = false
-    if legit_moves.include? [new_x, new_y]
-      return true
-    else
-      return false
-    end
+  def x_move_distance(new_x_position) # Finds the distance moved in the x axis
+    x_move_distance = (self.x_position - new_x_position).abs # .abs stops it from being negative
   end
 
-  def legit_moves
-    piece = ChessPiece.find(self.id)
-    x_init = piece.x_position
-    y_init = piece.y_position
-    
-    # list of moves available to King: 
-    up = [x_init, y_init + 1]
-    down = [x_init, y_init - 1]
-    right = [x_init + 1, y_init]
-    left = [x_init - 1, y_init]
-    up_right = [x_init + 1, y_init + 1]
-    up_left = [x_init - 1, y_init + 1]
-    down_right = [x_init + 1, y_init - 1]
-    down_left = [x_init - 1, y_init - 1]
+  def y_move_distance(new_y_position) # Finds the distance moved in the y axis
+    y_move_distance = (self.y_position - new_y_position).abs # .abs stops it from being negative
+  end
 
-    valid_moves = []
-
-    # King can move only if: 
-    can_move_up = y_init != 7 
-    can_move_down = y_init != 0 
-    can_move_left = x_init != 0 
-    can_move_right = x_init != 7 
-
-    valid_moves.push(up) if can_move_up
-    valid_moves.push(down) if can_move_down
-    valid_moves.push(left) if can_move_left
-    valid_moves.push(right) if can_move_right
-    valid_moves.push(up_right) if can_move_up && can_move_right 
-    valid_moves.push(up_left) if can_move_up && can_move_left
-    valid_moves.push(down_right) if can_move_down && can_move_right
-    valid_moves.push(down_left) if can_move_down && can_move_left
-
-    return valid_moves 
-
+  def valid_move?(new_x_position, new_y_position)
+    if (x_move_distance(new_x_position) == 0 && y_move_distance(new_y_position) == 1) # Return true if vertical move distance is 1
+      true
+    elsif (x_move_distance(new_x_position) == 1 && y_move_distance(new_y_position) == 0) # Return true if horizontal move distance is 1
+      true
+    elsif (x_move_distance(new_x_position) == 1 && y_move_distance(new_y_position) == 1) # Return true if diagonal move distance is 1
+      true
+    else
+      false
+    end
   end
 
 end
