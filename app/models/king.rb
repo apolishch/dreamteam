@@ -1,4 +1,5 @@
 class King < ChessPiece
+
   belongs_to :game
 
   def x_move_distance(new_x_position) # Finds the distance moved in the x axis
@@ -20,5 +21,5 @@ class King < ChessPiece
       false
     end
   end
-
+  
 end

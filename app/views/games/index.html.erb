@@ -10,9 +10,15 @@
         <h6 class="text-center">Opponent: <%= substring %> </h6>
         <%= image_tag "image2.jpg", class: "index-resize" %>
         <hr />
+        <% if current_user.id == single.user_id %>
+        <div class="button">
+          <%= link_to "Continue game", game_path(single.id), method: :put, class: 'btn btn-info' %>
+        </div>
+        <% else %>
         <div class="button">
           <%= link_to "Join Game", game_path(single.id), method: :put, class: 'btn btn-primary' %>
         </div>
+        <% end %>
       </div>
     <% end %>
   </div>
@@ -35,7 +41,7 @@
             <%= image_tag "image2.jpg", class: "index-resize" %>
             <hr />
             <div class="button">
-              <%= link_to "Continue Game", '#', class: 'btn btn-info' %>
+              <%= link_to "Continue Game", game_path(game), class: 'btn btn-info' %>
             </div>
           </div>
       <% end %>
@@ -43,8 +49,3 @@
   </div>
 
 </div>
-
-
-
-
- 
