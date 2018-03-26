@@ -14,6 +14,7 @@ class Queen < ChessPiece
   end
 
   def valid_move?(new_x_position, new_y_position)
+    super
     if diagonal?(new_x_position, new_y_position)
       true
     elsif (new_x_position == self.x_position && new_y_position != self.y_position)
@@ -23,7 +24,6 @@ class Queen < ChessPiece
     else
       false 
     end
-    super
   end
 
 end

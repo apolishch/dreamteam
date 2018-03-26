@@ -2,6 +2,7 @@ class Rook < ChessPiece
   belongs_to :game
 
   def valid_move?(new_x_position, new_y_position)
+    super
     if (new_x_position == self.x_position && new_y_position != self.y_position)
       true
     elsif (new_y_position == self.y_position && new_x_position != self.x_position)
@@ -9,7 +10,6 @@ class Rook < ChessPiece
     else
       false
     end
-    super
   end
 end
 
