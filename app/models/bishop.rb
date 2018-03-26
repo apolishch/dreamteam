@@ -15,12 +15,12 @@ class Bishop < ChessPiece
   end
 
   def valid_move?(new_x_position, new_y_position)
+    super
     if diagonal?(new_x_position, new_y_position)
       true
     else
       false
     end
-    super
   end
 end
 
