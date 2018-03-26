@@ -31,6 +31,23 @@ class ChessPiece < ApplicationRecord
     end
   end
 
+
+  def capture(x, y)
+    target_piece = ChessPiece.find_by(x_position: x, y_position: y) # Find opponent piece
+
+    return unless target_piece.present? # Return nothing unless the opponent piece is present
+    return unless self.color != target_piece.color # Return nothing unless the opponent piece is a different color
+
+    target_piece.destroy! # Remove opponent piece from board
+    self.update_attributes(x_position: x, y_position: y) # Update position of current piece to former opponent piece position
+  end
+
+
+end
+
+
+
+
   def same_color?(color)
     color == self.color
   end
@@ -40,3 +57,4 @@ class ChessPiece < ApplicationRecord
   end
   
 end
+
