@@ -17,6 +17,7 @@ class Knight < ChessPiece
     else
       false
     end
+    super
   end
 end
 

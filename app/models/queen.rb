@@ -23,6 +23,7 @@ class Queen < ChessPiece
     else
       false 
     end
+    super
   end
 
 end

@@ -9,6 +9,7 @@ class Rook < ChessPiece
     else
       false
     end
+    super
   end
 end
 

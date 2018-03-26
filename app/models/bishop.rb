@@ -19,6 +19,7 @@ class Bishop < ChessPiece
     else
       false
     end
+    super
   end
 end
 
