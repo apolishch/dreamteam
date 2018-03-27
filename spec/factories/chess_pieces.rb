@@ -8,6 +8,7 @@ FactoryBot.define do
     association :game
     x_position 4
     y_position 4
+  end
 
 
   factory :rook do  

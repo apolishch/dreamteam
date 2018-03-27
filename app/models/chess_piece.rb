@@ -43,11 +43,6 @@ class ChessPiece < ApplicationRecord
   end
 
 
-end
-
-
-
-
   def same_color?(color)
     color == self.color
   end
