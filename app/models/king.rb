@@ -21,5 +21,30 @@ class King < ChessPiece
       false
     end
   end
-  
+
+
+  def can_escape_from_check?
+    king_x = x_position
+    king_y = y_position
+    array = []
+
+    (-1..1).to_a.each do |x|
+      (-1..1).to_a.each do |y|
+        array << [x, y]
+      end
+    end
+
+    return true if !game.is_in_check?(player)
+
+    array.each do |touple|
+      touple = increment_x, increment_y
+      if valid_move?(king_x + increment_x, king_y + increment_y)
+        true
+      else
+        false
+      end
+    end
+  end
+
+
 end
