@@ -5,8 +5,9 @@ RSpec.describe ChessPiece, type: :model do
   context '#is_obstructed?' do
     let(:game) {FactoryBot.create(:game)}
     let(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2)}
+
     it 'checks if target is same as current position' do
-      expect(piece.is_obstructed?(2, 2)).to eq(false)
+      expect(piece.is_obstructed?(2, 2)).to eq(true)
     end
 
     it 'checks for horizontal obstruction' do
