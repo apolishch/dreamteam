@@ -38,8 +38,7 @@ class Pawn < ChessPiece
       false
     end
   end
-#black_pawn2.valid_move?(2, 2)
-#black_pawn2.valid_move?(2, 3)
+
   def valid_move?(x, y)
     if (x == self.x_position) && (y == self.y_position) # If trying to move to same position as piece´s current position
       false
@@ -48,8 +47,9 @@ class Pawn < ChessPiece
     elsif self.valid_direction?(y) == false # Not allowed to move backwards
       false
     elsif ((y - self.y_position).abs == 1) && (x == self.x_position) # If piece moves 1 tile vertically
+      
       true
-    elsif ((x - self.x_position).abs == 1) && ((y - self.y_position).abs == 1) # Diagonal capture where there is a piece present on target destination
+    elsif diagonal_move(x, y) # Diagonal capture where there is a piece present on target destination
       true
     elsif (self.y_position == 1) && (self.color == false) && ((y - self.y_position).abs == 2) # If target is 2 tiles away, black piece
       true

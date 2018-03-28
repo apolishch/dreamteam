@@ -41,8 +41,8 @@ RSpec.describe Pawn, type: :model do
     end
 
     it "should be able to move diagonally if capturing" do
-      expect(black_pawn1.valid_move?(3, 2)).to eq true
-      expect(white_pawn1.valid_move?(3, 5)).to eq true
+      expect(black_pawn1.valid_move?(3, 3)).to eq true
+      expect(white_pawn1.valid_move?(3, 4)).to eq true
     end
 
     it "can move 2 down if the piece color is black and piece is in starting position" do
