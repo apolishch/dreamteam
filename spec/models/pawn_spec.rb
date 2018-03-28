@@ -41,16 +41,20 @@ RSpec.describe Pawn, type: :model do
     end
 
     it "should be able to move diagonally if capturing" do
-      expect(black_pawn1.valid_move?(3, 2)).to eq true
-      expect(white_pawn1.valid_move?(3, 5)).to eq true
+      expect(black_pawn1.valid_move?(3, 3)).to eq true
+      expect(white_pawn1.valid_move?(3, 4)).to eq true
     end
 
     it "can move 2 down if the piece color is black and piece is in starting position" do
+      black_pawn2 = FactoryBot.create(:pawn, color: false, game_id: game.id, x_position: 0, y_position: 1)
 
+      expect(black_pawn2.valid_move?(0, 3)).to eq true
     end
 
     it "can move 2 up if the color is white and piece is in starting position" do
+      white_pawn2 = FactoryBot.create(:pawn, color: true, game_id: game.id, x_position: 0, y_position: 6)
 
+      expect(white_pawn2.valid_move?(0, 4)).to eq true
     end
 
 
