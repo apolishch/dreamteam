@@ -68,31 +68,70 @@ RSpec.describe King, type: :model do
     end
     
   
-    describe '#valid_move?' do
-      let(:king) { FactoryBot.create(:king) }
+  describe '#valid_move?' do
+    let(:king) { FactoryBot.create(:king) }
 
-      it 'should test if horizontal moves are valid' do
-        expect(king.valid_move?(5, 4)).to eq true
-      end
+    it 'should test if horizontal moves are valid' do
+      expect(king.valid_move?(5, 4)).to eq true
+    end
 
-      it 'should test if vertical moves are valid' do 
-        expect(king.valid_move?(4, 5)).to eq true
-      end
+    it 'should test if vertical moves are valid' do 
+      expect(king.valid_move?(4, 5)).to eq true
+    end
 
-      it 'should test if diagonal moves are valid' do
-        expect(king.valid_move?(5, 5)).to eq true
-      end
+    it 'should test if diagonal moves are valid' do
+      expect(king.valid_move?(5, 5)).to eq true
+    end
 
-      it 'should not allow horizontal movements greater than 1' do
-        expect(king.valid_move?(6, 4)).to eq false
-      end    
-    
-      it 'should not allow vertical movements greater than 1' do
-        expect(king.valid_move?(4, 6)).to eq false
-      end    
-    
-      it 'should not allow diagonal movements greater than 1' do
-        expect(king.valid_move?(6, 6)).to eq false
+    it 'should not allow horizontal movements greater than 1' do
+      expect(king.valid_move?(6, 4)).to eq false
+    end
+
+    it 'should not allow vertical movements greater than 1' do
+      expect(king.valid_move?(4, 6)).to eq false
+    end
+
+    it 'should not allow diagonal movements greater than 1' do
+      expect(king.valid_move?(6, 6)).to eq false
+    end
+  end
+
+  describe '#checkmate?' do
+    let(:game) {FactoryBot.create(:game)}
+    let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 0, y_position: 0, color: true)}
+
+    describe 'when not in check' do
+      it 'returns false' do
+        expect(king.in_check?).to eq(false)
+        expect(king.checkmate?).to eq(false)
       end
     end
+  end
+
+  describe '#can_escape_from_check?' do
+    let(:game) {FactoryBot.create(:game)}
+    let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 4, y_position: 4, color: true)}
+    let!(:king2) {FactoryBot.create(:king, game_id: game.id, x_position: 2, y_position: 6, color: true)}
+    let!(:rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 4, y_position: 2, color: false)}
+    let!(:rook2) {FactoryBot.create(:rook, game_id: game.id, x_position: 2, y_position: 4, color: false)}
+    let!(:rook3) {FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 4, color: false)}
+    let!(:rook4) {FactoryBot.create(:rook, game_id: game.id, x_position: 3, y_position: 4, color: false)}
+
+
+    describe 'when in check see if king can move out of the way and not be in check' do
+      it 'returns true' do
+        # allow(king).to receive(:in_check?).and_return(true)
+        expect(king.in_check?).to eq(true)
+        expect(king.can_escape_from_check?).to eq(true)
+      end
+    end
+
+    describe 'when in check and there is no way for the king to escape' do
+      it 'returns false' do 
+        expect(king2.in_check?).to eq(true)
+        expect(king2.can_escape_from_check?).to eq(false)
+      end
+    end
+  end
+
 end

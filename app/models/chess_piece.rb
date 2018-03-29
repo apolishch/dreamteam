@@ -50,6 +50,16 @@ class ChessPiece < ApplicationRecord
   def moving_on_board?(x, y)
     x.between?(0, 7) && y.between?(0, 7)
   end
+
+  def can_threatening_piece_be_captured?
+    kings_heroes = game.chess_pieces.where(color: !color)
+    kings_heroes.each do |hero|
+      if hero.valid_move?(x_position, y_position)
+        return true
+      end
+    end
+    false
+  end
   
 end
 

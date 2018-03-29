@@ -48,28 +48,38 @@ class King < ChessPiece
       end
     end
 
+  def checkmate?
+  # def checkmate?(color)
+    # checked_king = pieces.find_by(type: 'King', color: color)
 
-    def can_escape_from_check?
-      king_x = x_position
-      king_y = y_position
-      array = []
+    # make sure color is in check and get @piece_causing_check
+    return false unless in_check?
 
-      (-1..1).to_a.each do |x|
-        (-1..1).to_a.each do |y|
-          array << [x, y]
-        end
-      end
+    # # see if another piece can capture checking piece
+    # return false if @piece_causing_check.can_be_captured?
 
-      return true if !game.is_in_check?(player)
+    # # see if king can get himself out of check
+    # return false if checked_king.can_move_out_of_check?
 
-      array.each do |touple|
-        touple = increment_x, increment_y
-        if valid_move?(king_x + increment_x, king_y + increment_y)
-          true
-        else
-          false
-        end
+    # # # see if another piece can block check
+    # return false if @piece_causing_check.can_be_blocked?(checked_king)
+
+    # true
+  end
+
+  def can_escape_from_check?
+    original_x = x_position
+    original_y = y_position
+    can_escape = false
+    ((x_position - 1)..(x_position + 1)).each do |x|
+      ((y_position - 1)..(y_position + 1)).each do |y|
+        update_attributes(x_position: x, y_position: y) if valid_move?(x, y)
+        can_escape = true unless in_check?
+        update_attributes(x_position: original_x, y_position: original_y)
       end
     end
+    can_escape
+  end
+
 end
 

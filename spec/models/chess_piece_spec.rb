@@ -78,4 +78,18 @@ RSpec.describe ChessPiece, type: :model do
       expect(piece.valid_move?(2, 5, false)).to eq(false)
     end
   end
+
+  describe '#can_threatening_piece_be_captured' do 
+    let(:game) {FactoryBot.create(:game)}
+    let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 4, y_position: 4, color: true)}
+    let!(:good_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 3, y_position: 2, color: true)}
+    let!(:enemy_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 4, y_position: 2, color: false)}
+
+    describe 'when king is in check and you have a piece that can capture the threatening piece' do 
+      it 'returns true' do 
+        expect(enemy_rook.can_threatening_piece_be_captured?).to eq(true)
+      end
+    end
+  end
+  
 end

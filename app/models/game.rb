@@ -56,5 +56,11 @@ class Game < ApplicationRecord
     # [@white_pawn_1, @white_pawn_2, @white_pawn_3, @white_pawn_4, @white_pawn_5, @white_pawn_6, @white_pawn_7, @white_pawn_8],
     # [@white_rook_1, @white_knight_1, @white_bishop_1, @white_queen, @white_king, @white_bishop_2, @white_knight_2, @white_rook_2]])
   end
+
+  def pieces_remaining(color)
+    pieces.includes(:game).where(
+      "color = ? and state != 'off-board'",
+      color).to_a
+  end
     
 end
