@@ -7,7 +7,6 @@ RSpec.describe Pawn, type: :model do
     let(:black_pawn) {FactoryBot.create(:pawn, color: false, game_id: game.id, x_position: 1, y_position: 1)}
     let(:white_pawn) {FactoryBot.create(:pawn, color: true, game_id: game.id, x_position: 1, y_position: 6)}
 
-
     it "should not allow pawn to move to it's current position" do
       expect(black_pawn.valid_move?(1, 1)).to eq false
       expect(white_pawn.valid_move?(1, 6)).to eq false
@@ -29,7 +28,6 @@ RSpec.describe Pawn, type: :model do
     end
   end
 
-
   context 'valid moves' do
     let(:game) {FactoryBot.create(:game)}
     let(:black_pawn1) {FactoryBot.create(:pawn, color: false, game_id: game.id, x_position: 2, y_position: 2)}
@@ -46,20 +44,15 @@ RSpec.describe Pawn, type: :model do
     end
 
     it "can move 2 down if the piece color is black and piece is in starting position" do
-      black_pawn2 = FactoryBot.create(:pawn, color: false, game_id: game.id, x_position: 0, y_position: 1)
+      black_pawn2 = FactoryBot.create(:pawn, color: false, game_id: game.id, x_position: 0, y_position: 1, promotable: false)
 
       expect(black_pawn2.valid_move?(0, 3)).to eq true
     end
 
     it "can move 2 up if the color is white and piece is in starting position" do
-      white_pawn2 = FactoryBot.create(:pawn, color: true, game_id: game.id, x_position: 0, y_position: 6)
+      white_pawn2 = FactoryBot.create(:pawn, color: true, game_id: game.id, x_position: 0, y_position: 6, promotable: false)
 
       expect(white_pawn2.valid_move?(0, 4)).to eq true
     end
-
-
   end
-
-
-
 end
