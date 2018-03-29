@@ -15,7 +15,7 @@ class King < ChessPiece
     def pieces_causing_check
         pieces_causing_check = []
         self.opponent_pieces.each do |piece|
-            if piece.valid_move?(self.x_position, self.y_position)
+            if piece.valid_move?(self.x_position, self.y_position, self.color)
                 pieces_causing_check << piece
             end
         end
