@@ -3,6 +3,14 @@ FactoryBot.define do
     association :game
   end
 
+    
+  factory :king do
+    association :game
+    x_position 4
+    y_position 4
+  end
+
+
   factory :rook do  
   end
 
@@ -12,12 +20,10 @@ FactoryBot.define do
   factory :knight do  
   end
 
-  factory :king do  
-  end
-
   factory :queen do  
   end
 
   factory :pawn do  
+
   end
 end

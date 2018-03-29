@@ -10,7 +10,8 @@ class Knight < ChessPiece
     y_move_distance = (self.y_position - new_y_position).abs # .abs stops negatives
   end
 
-  def valid_move?(new_x_position, new_y_position)
+  def valid_move?(new_x_position, new_y_position, color=nil)
+    super
     if (x_move_distance(new_x_position) == 2 && y_move_distance(new_y_position) == 1)
       true
     elsif (y_move_distance(new_y_position) == 2 && x_move_distance(new_x_position) == 1)
@@ -18,7 +19,6 @@ class Knight < ChessPiece
     else
       false
     end
-    super
   end
 end
 
