@@ -81,15 +81,26 @@ RSpec.describe ChessPiece, type: :model do
 
   describe '#can_threatening_piece_be_captured' do 
     let(:game) {FactoryBot.create(:game)}
-    let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 4, y_position: 4, color: true)}
-    let!(:good_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 3, y_position: 2, color: true)}
-    let!(:enemy_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 4, y_position: 2, color: false)}
+    let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 0, y_position: 0, color: true)}
+    let!(:good_pawn) {FactoryBot.create(:pawn, game_id: game.id, x_position: 1, y_position: 1, color: true)}
+    let!(:enemy_knight) {FactoryBot.create(:knight, game_id: game.id, x_position: 1, y_position: 2, color: false)}
+    # let!(:good_bishop) {FactoryBot.create(:bishop, game_id: game.id, x_position: 5, y_position: 1, color: true)}
+    let!(:king2) {FactoryBot.create(:king, game_id: game.id, x_position: 7, y_position: 5, color: true)}
+    let!(:enemy_rook2) {FactoryBot.create(:rook, game_id: game.id, x_position: 7, y_position: 7, color: false)}
 
     describe 'when king is in check and you have a piece that can capture the threatening piece' do 
       it 'returns true' do 
-        expect(enemy_rook.can_threatening_piece_be_captured?).to eq(true)
+        expect(king.in_check?).to eq(true)
+        expect(enemy_knight.can_threatening_piece_be_captured?).to eq(true)
+      end
+    end
+
+    describe 'when king is in check and you have a piece that can not capture the threatening piece' do 
+      it 'returns false' do 
+        expect(king2.in_check?).to eq(true)
+        expect(enemy_rook2.can_threatening_piece_be_captured?).to eq(false)
       end
     end
   end
-  
+
 end

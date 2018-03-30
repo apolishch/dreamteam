@@ -69,7 +69,8 @@ RSpec.describe King, type: :model do
     
   
   describe '#valid_move?' do
-    let(:king) { FactoryBot.create(:king) }
+    let(:game) {FactoryBot.create(:game)}
+    let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 4, y_position: 4)}
 
     it 'should test if horizontal moves are valid' do
       expect(king.valid_move?(5, 4)).to eq true
@@ -91,8 +92,16 @@ RSpec.describe King, type: :model do
       expect(king.valid_move?(4, 6)).to eq false
     end
 
+    it 'should not allow vertical movements greater than 1' do 
+      expect(king.valid_move?(4, 2)).to eq false
+    end
+
     it 'should not allow diagonal movements greater than 1' do
       expect(king.valid_move?(6, 6)).to eq false
+    end
+
+    it 'should not allow far away movements' do
+      expect(king.valid_move?(7, 3)).to eq false
     end
   end
 
