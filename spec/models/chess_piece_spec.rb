@@ -9,12 +9,14 @@ RSpec.describe ChessPiece, type: :model do
       expect(piece.is_obstructed?(2, 2)).to eq(false)
     end
 
-    it 'checks for horizontal obstruction' do
+    it 'checks for vertical obstruction' do
+      # binding.pry
       piece2 = FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 1)
       expect(piece.is_obstructed?(2, 0)).to eq(true)
     end
 
-    it 'checks for vertical obstruction' do
+    it 'checks for horizontal obstruction' do
+      # binding.pry
       piece2 = FactoryBot.create(:chess_piece, game_id: game.id, x_position: 5, y_position: 2)
       expect(piece.is_obstructed?(6, 2)).to eq(true)
     end
@@ -24,14 +26,12 @@ RSpec.describe ChessPiece, type: :model do
       expect(piece.is_obstructed?(4, 4)).to eq(true)
     end    
 
-    it 'checks for horizontal not an obstruction' do
-      # piece2 = FactoryBot.create(:chess_piece, game_id: game.id, x_position: 3, y_position: 3)
-      expect(piece.is_obstructed?(2, 3)).to eq(true)
+    it 'checks for horizontal movement when not obstructed' do
+      expect(piece.is_obstructed?(2, 3)).to eq(false)
     end    
 
-    it 'checks for vertical not an obstruction' do
-      # piece2 = FactoryBot.create(:chess_piece, game_id: game.id, x_position: 3, y_position: 3)
-      expect(piece.is_obstructed?(3, 2)).to eq(true)
+    it 'checks for vertical movement when not obstructed' do
+      expect(piece.is_obstructed?(3, 2)).to eq(false)
     end
 
     it 'when piece is not obstructed' do
@@ -100,25 +100,25 @@ RSpec.describe ChessPiece, type: :model do
   describe '#can_threatening_piece_be_captured' do 
     let(:game) {FactoryBot.create(:game)}
     let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 0, y_position: 0, color: true)}
-    let!(:good_pawn) {FactoryBot.create(:pawn, game_id: game.id, x_position: 1, y_position: 1, color: true)}
-    let!(:enemy_knight) {FactoryBot.create(:knight, game_id: game.id, x_position: 1, y_position: 2, color: false)}
-    let!(:enemy_rook) {FactoryBot.create(:bishop, game_id: game.id, x_position: 7, y_position: 3, color: false)}
+    let!(:good_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 2, color: true)}
+    let!(:enemy_rook2) {FactoryBot.create(:rook, game_id: game.id, x_position: 0, y_position: 2, color: false)}
+    # let!(:enemy_knight) {FactoryBot.create(:knight, game_id: game.id, x_position: 1, y_position: 2, color: false)}
+    let!(:enemy_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 7, y_position: 3, color: false)}
     let!(:king2) {FactoryBot.create(:king, game_id: game.id, x_position: 7, y_position: 5, color: true)}
     let!(:good_rook2) {FactoryBot.create(:rook, game_id: game.id, x_position: 6, y_position: 7, color: true)}
 
     describe 'when king is in check and you have a piece that can capture the threatening piece' do 
       it 'returns true' do 
+        # binding.pry
         expect(king.in_check?).to eq(true)
-        expect(enemy_knight.can_threatening_piece_be_captured?).to eq(true)
+        expect(enemy_rook2.can_threatening_piece_be_captured?).to eq(true)
       end
     end
 
     describe 'when king is in check and you have a piece that can not capture the threatening piece' do 
       it 'returns false' do 
-        # binding.pry
-        # king2.valid_move?(7,7)
         expect(king2.in_check?).to eq(true)
-        expect(enemy_rook2.can_threatening_piece_be_captured?).to eq(false)
+        expect(enemy_rook.can_threatening_piece_be_captured?).to eq(false)
       end
     end
   end
