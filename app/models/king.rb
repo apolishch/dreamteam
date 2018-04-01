@@ -35,17 +35,21 @@ class King < ChessPiece
     end
 
     def valid_move?(new_x_position, new_y_position, color=nil)
-      if super
-          true
-      elsif (x_move_distance(new_x_position) == 0 && y_move_distance(new_y_position) == 1) # Return true if vertical move distance is 1
-        true
-      elsif (x_move_distance(new_x_position) == 1 && y_move_distance(new_y_position) == 0) # Return true if horizontal move distance is 1
-        true
-      elsif (x_move_distance(new_x_position) == 1 && y_move_distance(new_y_position) == 1) # Return true if diagonal move distance is 1
-        true
+      invalid = !super
+      if invalid
+        return false
       else
-        false
+        x_distance = x_move_distance(new_x_position)
+        y_distance = y_move_distance(new_y_position)
+        return valid_x_y_move?(x_distance, y_distance)
       end
+    end
+
+    def valid_x_y_move?(x_distance, y_distance)
+      invalid = !(x_distance == 0 && y_distance == 1) &&    # Vertical move distance is 1
+        !(x_distance == 1 && y_distance == 0) &&  # Horizontal move distance is 1
+        !(x_distance == 1 && y_distance == 1)     # Diagonal move distance is 1
+      invalid ? false : true
     end
 
   def checkmate?
@@ -63,6 +67,9 @@ class King < ChessPiece
 
     # # # see if another piece can block check
     # return false if @piece_causing_check.can_be_blocked?(checked_king)
+
+    return true if pieces_causing_check > 1
+    return false if pieces_causing_check.first.can_be_blocked
 
     # true
   end
