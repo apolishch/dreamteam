@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ChessPiece, type: :model do
-
   context '#is_obstructed?' do
     let(:game) {FactoryBot.create(:game)}
     let(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2)}
@@ -24,11 +23,11 @@ RSpec.describe ChessPiece, type: :model do
     it 'checks for diagonal obstruction' do
       piece2 = FactoryBot.create(:chess_piece, game_id: game.id, x_position: 3, y_position: 3)
       expect(piece.is_obstructed?(4, 4)).to eq(true)
-    end    
+    end
 
     it 'checks for horizontal movement when not obstructed' do
       expect(piece.is_obstructed?(2, 3)).to eq(false)
-    end    
+    end
 
     it 'checks for vertical movement when not obstructed' do
       expect(piece.is_obstructed?(3, 2)).to eq(false)
@@ -47,37 +46,37 @@ RSpec.describe ChessPiece, type: :model do
       end
     end
   end
-  
+
   context '#moving_on_board?' do
     let(:game) {FactoryBot.create(:game)}
     let(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2)}
     it 'checks if piece is moving to location on the board' do
       expect(piece.moving_on_board?(3, 3)).to eq(true)
     end
-    
+
     it 'checks if piece is moving to location off the board horizontally' do
       expect(piece.moving_on_board?(9, 2)).to eq(false)
     end
-    
+
     it 'checks if piece is moving to location off the board vertically' do
       expect(piece.moving_on_board?(2, 9)).to eq(false)
     end
   end
-  
+
   context '#same_color?' do
     let(:game) {FactoryBot.create(:game)}
     let(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, color: true)}
     it 'checks if the piece at target location is the same color' do
       expect(piece.same_color?(true)).to eq(true)
     end
-    
+
     it 'checks if the piece at the target location is a different color' do
       expect(piece.same_color?(false)).to eq(false)
     end
-      
+
   end
-  
-  
+
+
   #this test doesn't work properly. I need to redo the test, but each method called in this method is tested above.
   context '#valid_move?' do
     let(:game) {FactoryBot.create(:game)}
@@ -86,18 +85,18 @@ RSpec.describe ChessPiece, type: :model do
       expect(piece.valid_move?(7,2, false)).to eq(true)
       expect(piece.valid_move?(4, -1, false)).to eq(false)
     end
-    
+
     xit 'checks that piece isn\'t obstructed' do
       piece2 = FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 3, color: false)
       expect(piece.valid_move?(2, 5)).to eq(true)
     end
-    
+
     xit 'checks that the piece at target location isn\'t the same color' do
       expect(piece.valid_move?(2, 5, false)).to eq(false)
     end
   end
 
-  context '#can_threatening_piece_be_captured?' do 
+  context '#can_threatening_piece_be_captured?' do
     let(:game) {FactoryBot.create(:game)}
     let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 0, y_position: 0, color: true)}
     let!(:good_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 2, color: true)}
@@ -107,16 +106,16 @@ RSpec.describe ChessPiece, type: :model do
     let!(:king2) {FactoryBot.create(:king, game_id: game.id, x_position: 7, y_position: 5, color: true)}
     let!(:good_rook2) {FactoryBot.create(:rook, game_id: game.id, x_position: 6, y_position: 7, color: true)}
 
-    describe 'when king is in check and you have a piece that can capture the threatening piece' do 
-      it 'returns true' do 
+    describe 'when king is in check and you have a piece that can capture the threatening piece' do
+      it 'returns true' do
         # binding.pry
         expect(king.in_check?).to eq(true)
         expect(enemy_rook2.can_threatening_piece_be_captured?).to eq(true)
       end
     end
 
-    describe 'when king is in check and you have a piece that can not capture the threatening piece' do 
-      it 'returns false' do 
+    describe 'when king is in check and you have a piece that can not capture the threatening piece' do
+      it 'returns false' do
         expect(king2.in_check?).to eq(true)
         expect(enemy_rook.can_threatening_piece_be_captured?).to eq(false)
       end
@@ -132,31 +131,126 @@ RSpec.describe ChessPiece, type: :model do
     end
   end
 
-  context '#is_diagonal_move?' do 
+  context '#is_diagonal_move?' do
     let(:game) {FactoryBot.create(:game)}
     let!(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2)}
 
-    it 'should return true if the piece is moving diagonally' do 
+    it 'should return true if the piece is moving diagonally' do
       expect(piece.is_diagonal_move?(3,3)).to eq(true)
     end
 
-    it 'should return false if the piece is not moving diagonally' do 
+    it 'should return false if the piece is not moving diagonally' do
       expect(piece.is_diagonal_move?(3,2)).to eq(false)
       expect(piece.is_diagonal_move?(2,3)).to eq(false)
     end
   end
 
-  context '#is_horizontal_move?' do 
+  context '#is_horizontal_move?' do
     let(:game) {FactoryBot.create(:game)}
     let!(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2)}
 
-    it 'should return true if the piece is moving horizontally' do 
+    it 'should return true if the piece is moving horizontally' do
       expect(piece.is_horizontal_move?(3,2)).to eq(true)
     end
 
-    it 'should return false if the piece is not moving horizontally' do 
+    it 'should return false if the piece is not moving horizontally' do
       expect(piece.is_horizontal_move?(2,3)).to eq(false)
     end
   end
 
+  context '#is_horizontal_move?' do
+    let(:game) {FactoryBot.create(:game)}
+    let!(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2)}
+
+    it 'should return true if the piece is moving vertically' do
+      expect(piece.is_vertical_move?(2,3)).to eq(true)
+    end
+
+    it 'should return false if the piece is not moving vertically' do
+      expect(piece.is_vertical_move?(4,3)).to eq(false)
+    end
+  end
+
+  describe '#can_threat_be_blocked?' do
+    let(:game) { FactoryBot.create :game }
+
+    describe 'when the enemy piece can be blocked' do
+      let!(:king) { FactoryBot.create :king, game: game, x_position: 0, y_position: 0, color: true }
+
+      describe 'vertical' do
+        let(:enemy_rook) { FactoryBot.create :rook, game: game, x_position: 0, y_position: 2, color: false }
+        let!(:good_rook) { FactoryBot.create :rook, game: game, x_position: 1, y_position: 1, color: true }
+
+        it 'returns true' do
+          expect(enemy_rook.can_threat_be_blocked?).to eq true
+        end
+      end
+
+      describe 'horizontal' do
+        let(:enemy_rook) { FactoryBot.create :rook, game: game, x_position: 2, y_position: 0, color: false }
+        let!(:good_rook) { FactoryBot.create :rook, game: game, x_position: 1, y_position: 1, color: true }
+
+        it 'returns true' do
+          expect(enemy_rook.can_threat_be_blocked?).to eq true
+        end
+      end
+
+      describe 'diagonal' do
+        let(:enemy_bishop) { FactoryBot.create :bishop, game: game, x_position: 2, y_position: 2, color: false }
+        let!(:good_rook) { FactoryBot.create :rook, game: game, x_position: 0, y_position: 1, color: true }
+
+        it 'returns true' do
+          expect(enemy_bishop.can_threat_be_blocked?).to eq true
+        end
+      end
+    end
+
+    describe "when the enemy piece can't be blocked" do
+      let!(:king) { FactoryBot.create :king, game: game, x_position: 7, y_position: 7, color: true }
+
+      describe 'no heroes' do
+        let(:enemy_rook) { FactoryBot.create :rook, game: game, x_position: 7, y_position: 6, color: false }
+
+        it "should return false if king doesn't have heroes" do
+          expect(enemy_rook.can_threat_be_blocked?).to eq false
+        end
+      end
+
+      describe 'vertical' do
+        let!(:good_rook) { FactoryBot.create :rook, game: game, x_position: 0, y_position: 7, color: true }
+        let!(:enemy_rook) { FactoryBot.create :rook, game: game, x_position: 7, y_position: 5, color: false }
+
+        it 'returns false' do
+          expect(enemy_rook.can_threat_be_blocked?).to eq false
+        end
+      end
+
+      describe 'horizontal' do
+        let!(:good_rook) { FactoryBot.create :rook, game: game, x_position: 1, y_position: 1, color: true }
+        let!(:enemy_rook) { FactoryBot.create :rook, game: game, x_position: 5, y_position: 7, color: false }
+
+        it 'returns false' do
+          expect(enemy_rook.can_threat_be_blocked?).to eq false
+        end
+      end
+
+      describe 'diagonal' do
+        let!(:good_rook) { FactoryBot.create :rook, game: game, x_position: 1, y_position: 1, color: true }
+        let!(:enemy_bishop) { FactoryBot.create :bishop, game: game, x_position: 5, y_position: 5, color: false }
+
+        it 'returns false' do
+          expect(enemy_bishop.can_threat_be_blocked?).to eq false
+        end
+      end
+
+      describe 'knight move' do
+        let!(:good_rook) { FactoryBot.create :rook, game: game, x_position: 4, y_position: 6, color: true }
+        let!(:enemy_knight) { FactoryBot.create :knight, game: game, x_position: 6, y_position: 5, color: false }
+
+        it 'returns false' do
+          expect(enemy_knight.can_threat_be_blocked?).to eq false
+        end
+      end
+    end
+  end
 end

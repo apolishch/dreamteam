@@ -1,7 +1,7 @@
 class ChessPiece < ApplicationRecord
   belongs_to :game
 
-  
+
   def valid_move?(x, y, color=nil)
     if !(self.moving_on_board?(x, y))
       return false
@@ -14,17 +14,17 @@ class ChessPiece < ApplicationRecord
       true
     end
   end
-    
+
   def is_obstructed?(x, y)
     x_sorted_array = [x, x_position].sort
     y_sorted_array = [y, y_position].sort
-    
+
     if (x == self.x_position) && (y == self.y_position) # If the piece is trying to be moved to it's current position
       false
 
     elsif y == self.y_position # If target is located horizontally, meaning on the same column as current position
       pieces_in_the_way = []
-      self.game.chess_pieces.each do |piece| 
+      self.game.chess_pieces.each do |piece|
         if piece != self
           (piece.y_position == y) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1])
           pieces_in_the_way << piece
@@ -32,11 +32,11 @@ class ChessPiece < ApplicationRecord
       end
 
       !pieces_in_the_way.empty?
-    
+
     elsif x == self.x_position # If target is located vertically - Same row
       pieces_in_the_way = []
       self.game.chess_pieces.each do |piece|
-      # binding.pry 
+      # binding.pry
         if piece != self
           (piece.x_position == x) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
           pieces_in_the_way << piece
@@ -46,14 +46,14 @@ class ChessPiece < ApplicationRecord
       !pieces_in_the_way.empty?
 
     elsif (x - self.x_position).abs == (y-self.y_position).abs # If target is located diagonally from starting position
-      
+
       pieces_in_the_way = self.game.chess_pieces.select do |piece|
         next false if piece == self
         ((x - piece.x_position).abs == (y - piece.y_position).abs) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1]) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
       end
-      
+
       !pieces_in_the_way.empty?
-      
+
     else
       false
     end
@@ -74,7 +74,7 @@ class ChessPiece < ApplicationRecord
   def same_color?(color)
     color == self.color
   end
-    
+
   def moving_on_board?(x, y)
     x.between?(0, 7) && y.between?(0, 7)
   end
@@ -118,8 +118,111 @@ class ChessPiece < ApplicationRecord
     if ( (self.x_position - x_destination).abs == 1 && (self.y_position - y_destination).abs == 2 ) || ( (self.x_position - x_destination).abs == 2 && (self.y_position - y_destination).abs == 1 )
       return true
     end
-    false   
-end
-  
-end
+    false
+  end
 
+  def can_threat_be_blocked?
+    kings_heroes = game.chess_pieces.where(color: !color)
+    king = game.chess_pieces.where(type: 'King', color: !color)
+    knight = game.chess_pieces.where(type: 'Knight', color: color)
+    threat_x_position = self.x_position
+    threat_y_position = self.y_position
+    king_x_position = king.first.x_position
+    king_y_position = king.first.y_position
+
+
+    if self.is_diagonal_move?(king_x_position, king_y_position)
+      if threat_x_position < king_x_position && threat_y_position < king_y_position # Northwest
+        (threat_x_position + 1).upto(king_x_position - 1) do |x|
+          (threat_y_position + 1).upto(king_y_position - 1) do |y|
+            kings_heroes.each do |piece|
+              if piece.id != king.ids.join.to_i
+                if x == y
+                  return true if piece.valid_move?(x, y)
+                end
+              end
+            end
+          end
+        end
+
+      elsif threat_x_position > king_x_position && threat_y_position < king_y_position # Northeast
+        (threat_x_position - 1).downto(king_x_position + 1) do |x|
+          (threat_y_position + 1).upto(king_y_position - 1) do |y|
+            kings_heroes.each do |piece|
+              if piece.id != king.ids.join.to_i
+                if x == y
+                  return true if piece.valid_move?(x, y)
+                end
+              end
+            end
+          end
+        end
+      elsif threat_x_position < king_x_position && threat_y_position > king_y_position # Southeast
+        (threat_x_position + 1).upto(king_x_position - 1) do |x|
+          (threat_y_position - 1).downto(king_y_position + 1) do |y|
+            kings_heroes.each do |piece|
+              if piece.id != king.ids.join.to_i
+                if x == y
+                  return true if piece.valid_move?(x, y)
+                end
+              end
+            end
+          end
+        end
+      elsif threat_x_position > king_x_position && threat_y_position > king_y_position # Southwest
+        (threat_x_position - 1).downto(king_x_position + 1) do |x|
+          (threat_y_position - 1).downto(king_y_position + 1) do |y|
+            kings_heroes.each do |piece|
+              if piece.id != king.ids.join.to_i
+                if x == y
+                  return true if piece.valid_move?(x, y)
+                end
+              end
+            end
+          end
+        end
+      end
+    elsif self.is_horizontal_move?(king_x_position, king_y_position)
+      # binding.pry
+      if threat_x_position < king_x_position && threat_y_position == king_y_position # West
+        (threat_x_position + 1).upto(king_x_position - 1) do |x|
+          kings_heroes.each do |piece|
+            # binding.pry
+            if piece.id != king.ids.join.to_i
+              return true if piece.valid_move?(x, threat_y_position)
+            end
+          end
+        end
+      elsif threat_x_position > king_x_position && threat_y_position == king_y_position # East
+        (threat_x_position - 1).downto(king_x_position + 1) do |x|
+          kings_heroes.each do |piece|
+            if piece.id != king.ids.join.to_i
+              return true if piece.valid_move?(x, threat_y_position)
+            end
+          end
+        end
+      end
+    elsif self.is_vertical_move?(king_x_position, king_y_position)
+      if threat_x_position == king_x_position && threat_y_position < king_y_position # North
+        (threat_y_position + 1).upto(king_y_position - 1) do |y|
+          kings_heroes.each do |piece|
+            if piece.id != king.ids.join.to_i
+              return true if piece.valid_move?(threat_x_position, y)
+            end
+          end
+        end
+      elsif threat_x_position == king_x_position && threat_y_position > king_y_position # South
+        (threat_y_position - 1).downto(king_y_position + 1) do |y|
+          kings_heroes.each do |piece|
+            if piece.id != king.ids.join.to_i
+              return true if piece.valid_move?(threat_x_position, y)
+            end
+          end
+        end
+      end
+    elsif self.is_knight_move?(king_x_position, king_y_position) && self == knight
+      return false
+    end
+    false
+  end
+end

@@ -66,7 +66,7 @@ class King < ChessPiece
     # # # see if another piece can block check
     # return false if @piece_causing_check.can_be_blocked?(checked_king)
 
-    return false if pieces_causing_check.can_be_blocked?
+    return false if pieces_causing_check.can_threat_be_blocked?
 
     true
   end
@@ -84,6 +84,9 @@ class King < ChessPiece
     end
     can_escape
   end
+
+
+
 
 end
 
