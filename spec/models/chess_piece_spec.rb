@@ -97,7 +97,7 @@ RSpec.describe ChessPiece, type: :model do
     end
   end
 
-  describe '#can_threatening_piece_be_captured' do 
+  context '#can_threatening_piece_be_captured?' do 
     let(:game) {FactoryBot.create(:game)}
     let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 0, y_position: 0, color: true)}
     let!(:good_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 2, color: true)}
@@ -129,6 +129,33 @@ RSpec.describe ChessPiece, type: :model do
 
     it 'should be an invalid move' do
       expect(king2.valid_move?(7,3)).to eq(false)
+    end
+  end
+
+  context '#is_diagonal_move?' do 
+    let(:game) {FactoryBot.create(:game)}
+    let!(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2)}
+
+    it 'should return true if the piece is moving diagonally' do 
+      expect(piece.is_diagonal_move?(3,3)).to eq(true)
+    end
+
+    it 'should return false if the piece is not moving diagonally' do 
+      expect(piece.is_diagonal_move?(3,2)).to eq(false)
+      expect(piece.is_diagonal_move?(2,3)).to eq(false)
+    end
+  end
+
+  context '#is_horizontal_move?' do 
+    let(:game) {FactoryBot.create(:game)}
+    let!(:piece) {FactoryBot.create(:chess_piece, game_id: game.id, x_position: 2, y_position: 2)}
+
+    it 'should return true if the piece is moving horizontally' do 
+      expect(piece.is_horizontal_move?(3,2)).to eq(true)
+    end
+
+    it 'should return false if the piece is not moving horizontally' do 
+      expect(piece.is_horizontal_move?(2,3)).to eq(false)
     end
   end
 

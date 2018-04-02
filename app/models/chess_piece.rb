@@ -88,6 +88,38 @@ class ChessPiece < ApplicationRecord
     end
     false
   end
+
+  def can_threatening_piece_be_blocked?
+    kings_heroes = game.chess_pieces.where(color: !color)
+  end
+
+  def is_diagonal_move?(x_destination, y_destination)
+    if (self.y_position - y_destination).abs == (self.x_position - x_destination).abs
+      return true
+    end
+    false
+  end
+
+  def is_vertical_move?(x_destination, y_destination)
+    if self.x_position == x_destination && self.y_position != y_destination
+      return true
+    end
+    false
+  end
+
+    def is_horizontal_move?(x_destination, y_destination)
+    if self.y_position == y_destination && self.x_position != x_destination
+      return true
+    end
+    false
+  end
+
+  def is_knight_move?(x_destination, y_destination)
+    if ( (self.x_position - x_destination).abs == 1 && (self.y_position - y_destination).abs == 2 ) || ( (self.x_position - x_destination).abs == 2 && (self.y_position - y_destination).abs == 1 )
+      return true
+    end
+    false   
+end
   
 end
 

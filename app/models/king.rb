@@ -53,25 +53,22 @@ class King < ChessPiece
     end
 
   def checkmate?
-  # def checkmate?(color)
-    # checked_king = pieces.find_by(type: 'King', color: color)
+    return true if pieces_causing_check.length > 1
 
-    # make sure color is in check and get @piece_causing_check
     return false unless in_check?
 
     # # see if another piece can capture checking piece
-    # return false if @piece_causing_check.can_be_captured?
+    return false if pieces_causing_check.can_threatening_piece_be_captured?
 
     # # see if king can get himself out of check
-    # return false if checked_king.can_move_out_of_check?
+    return false if self.can_escape_from_check?
 
     # # # see if another piece can block check
     # return false if @piece_causing_check.can_be_blocked?(checked_king)
 
-    return true if pieces_causing_check > 1
-    return false if pieces_causing_check.first.can_be_blocked
+    return false if pieces_causing_check.can_be_blocked?
 
-    # true
+    true
   end
 
   def can_escape_from_check?
