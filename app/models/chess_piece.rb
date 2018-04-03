@@ -80,6 +80,7 @@ class ChessPiece < ApplicationRecord
   end
 
   def can_threatening_piece_be_captured?
+    # return false if pieces_causing_check.length > 1
     kings_heroes = game.chess_pieces.where(color: !color)
     kings_heroes.each do |hero|
       if hero.valid_move?(x_position, y_position)

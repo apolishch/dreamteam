@@ -1,13 +1,13 @@
 class King < ChessPiece
     belongs_to :game
-    
+
     def opponent_pieces
         my_color = self.color
         opponent_pieces = self.game.chess_pieces.where(color: !my_color)
-        
+
         return opponent_pieces
     end
-    
+
     def pieces_causing_check
         pieces_causing_check = []
         self.opponent_pieces.each do |piece|
@@ -17,7 +17,7 @@ class King < ChessPiece
         end
         return pieces_causing_check
     end
-    
+
     def in_check?
        if (self.pieces_causing_check).empty?
            false
@@ -25,7 +25,7 @@ class King < ChessPiece
            true
        end
     end
-        
+
     def x_move_distance(new_x_position) # Finds the distance moved in the x axis
       x_move_distance = (self.x_position - new_x_position).abs # .abs stops it from being negative
     end
@@ -53,21 +53,11 @@ class King < ChessPiece
     end
 
   def checkmate?
-    return true if pieces_causing_check.length > 1
-
     return false unless in_check?
-
-    # # see if another piece can capture checking piece
-    return false if pieces_causing_check.can_threatening_piece_be_captured?
-
-    # # see if king can get himself out of check
     return false if self.can_escape_from_check?
-
-    # # # see if another piece can block check
-    # return false if @piece_causing_check.can_be_blocked?(checked_king)
-
-    return false if pieces_causing_check.can_threat_be_blocked?
-
+    return true if pieces_causing_check.length > 1
+    return false if pieces_causing_check.first.can_threatening_piece_be_captured?
+    return false if pieces_causing_check.first.can_threat_be_blocked?
     true
   end
 
@@ -89,4 +79,3 @@ class King < ChessPiece
 
 
 end
-
