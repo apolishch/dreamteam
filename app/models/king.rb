@@ -8,6 +8,35 @@ class King < ChessPiece
         return opponent_pieces
     end
 
+    def is_obstructed?(x, y)
+        super
+    end
+
+    def can_castle?(x, y)
+       #return false if !self.is_obstructed?(x, y)
+       return false if !self.has_moved?
+       return false if !self._has_rook_moved?(x, y)
+        
+       true
+    end
+
+    def has_moved?
+        super
+    end
+
+    # converts coordinates passed in to Rook
+    def _has_rook_moved?(x, y)
+       rook = ChessPiece.where(:game_id => self.game_id, :x_position => x, :y_position => y ).first
+       return false if rook.nil?
+       return false if rook.type != "Rook"
+
+       self.has_rook_moved?(rook)
+    end
+
+    def has_rook_moved?(rook)
+        rook.has_moved?
+    end
+    
     def pieces_causing_check
         pieces_causing_check = []
         self.opponent_pieces.each do |piece|

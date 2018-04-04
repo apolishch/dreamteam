@@ -2,6 +2,11 @@ class ChessPiece < ApplicationRecord
   belongs_to :game
 
 
+  def has_moved?
+    self.created_at == updated_at
+  end
+
+
   def valid_move?(x, y, color=nil)
     if !(self.moving_on_board?(x, y))
       return false
