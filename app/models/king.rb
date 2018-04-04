@@ -1,10 +1,10 @@
 class King < ChessPiece
     belongs_to :game
-    
+
     def opponent_pieces
         my_color = self.color
         opponent_pieces = self.game.chess_pieces.where(color: !my_color)
-        
+
         return opponent_pieces
     end
 
@@ -46,7 +46,7 @@ class King < ChessPiece
         end
         return pieces_causing_check
     end
-    
+
     def in_check?
        if (self.pieces_causing_check).empty?
            false
@@ -54,7 +54,7 @@ class King < ChessPiece
            true
        end
     end
-        
+
     def x_move_distance(new_x_position) # Finds the distance moved in the x axis
       x_move_distance = (self.x_position - new_x_position).abs # .abs stops it from being negative
     end
@@ -64,41 +64,47 @@ class King < ChessPiece
     end
 
     def valid_move?(new_x_position, new_y_position, color=nil)
-      if super
-          true
-      elsif (x_move_distance(new_x_position) == 0 && y_move_distance(new_y_position) == 1) # Return true if vertical move distance is 1
-        true
-      elsif (x_move_distance(new_x_position) == 1 && y_move_distance(new_y_position) == 0) # Return true if horizontal move distance is 1
-        true
-      elsif (x_move_distance(new_x_position) == 1 && y_move_distance(new_y_position) == 1) # Return true if diagonal move distance is 1
-        true
+      invalid = !super
+      if invalid
+        return false
       else
-        false
+        x_distance = x_move_distance(new_x_position)
+        y_distance = y_move_distance(new_y_position)
+        return valid_x_y_move?(x_distance, y_distance)
       end
     end
 
+    def valid_x_y_move?(x_distance, y_distance)
+      invalid = !(x_distance == 0 && y_distance == 1) &&    # Vertical move distance is 1
+        !(x_distance == 1 && y_distance == 0) &&  # Horizontal move distance is 1
+        !(x_distance == 1 && y_distance == 1)     # Diagonal move distance is 1
+      invalid ? false : true
+    end
 
-    def can_escape_from_check?
-      king_x = x_position
-      king_y = y_position
-      array = []
+  def checkmate?
+    return false unless in_check?
+    return false if self.can_escape_from_check?
+    return true if pieces_causing_check.length > 1
+    return false if pieces_causing_check.first.can_threatening_piece_be_captured?
+    return false if pieces_causing_check.first.can_threat_be_blocked?
+    true
+  end
 
-      (-1..1).to_a.each do |x|
-        (-1..1).to_a.each do |y|
-          array << [x, y]
-        end
-      end
-
-      return true if !game.is_in_check?(player)
-
-      array.each do |touple|
-        touple = increment_x, increment_y
-        if valid_move?(king_x + increment_x, king_y + increment_y)
-          true
-        else
-          false
-        end
+  def can_escape_from_check?
+    original_x = x_position
+    original_y = y_position
+    can_escape = false
+    ((x_position - 1)..(x_position + 1)).each do |x|
+      ((y_position - 1)..(y_position + 1)).each do |y|
+        update_attributes(x_position: x, y_position: y) if valid_move?(x, y)
+        can_escape = true unless in_check?
+        update_attributes(x_position: original_x, y_position: original_y)
       end
     end
+    can_escape
+  end
+
+
+
+
 end
-

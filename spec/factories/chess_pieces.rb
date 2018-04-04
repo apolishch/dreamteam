@@ -5,9 +5,6 @@ FactoryBot.define do
 
     
   factory :king do
-    association :game
-    x_position 4
-    y_position 4
   end
 
 
