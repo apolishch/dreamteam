@@ -30,20 +30,28 @@
     <% if @games.present? %>
       <% @games.each do |game| %>
         <div class="booyah-box index-div">
-            <% my_string = game.user.email %>
-            <% substring = my_string[/[^@]+/] %>
-            <% id = game.opponent_id %>
-            <% opponent = User.find(id) %>
-            <% my_string2 = opponent.email %>
-            <% substring2 = my_string2[/[^@]+/] %>
+          <% my_string = game.user.email %>
+          <% substring = my_string[/[^@]+/] %>
+          <% id = game.opponent_id %>
+          <% opponent = User.find(id) %>
+          <% my_string2 = opponent.email %>
+          <% substring2 = my_string2[/[^@]+/] %>
             <h3 class="text-center"><%= game.game_name %></h3>
             <h6 class="text-center"><%= substring %> VS <%= substring2 %></h6>
-            <%= image_tag "image2.jpg", class: "index-resize" %>
-            <hr />
-            <div class="button">
-              <%= link_to "Continue Game", game_path(game), class: 'btn btn-info' %>
-            </div>
+          <%= image_tag "image2.jpg", class: "index-resize" %>
+          <hr />
+          <% if game.in_game?(current_user) %>
+          <div class="button">
+            <%= link_to "Continue Game", game_path(game), class: 'btn btn-info' %>
           </div>
+          <% else %>
+          <div class="text-center">
+            <button type="button" class="btn btn-info text" disabled>
+              Game Full
+            </button>
+          </div>
+          <% end %>
+        </div>
       <% end %>
     <% end %>
   </div>
