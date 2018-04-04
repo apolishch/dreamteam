@@ -5,10 +5,18 @@ class ChessPiece < ApplicationRecord
   def valid_move?(x, y, color=nil)
     if !(self.moving_on_board?(x, y))
       return false
+    # elsif self.capture(x,y) 
+    #   return true
     elsif self.is_obstructed?(x, y)
       return false
+
+      # binding.pry
+      # if self.capture(x,y)
+      #   self.capture(x,y) 
+      # else 
+      #   return false
+      # end
     # elsif self.same_color?(color)
-    #   binding.pry
     #   return false
     else
       true
@@ -225,5 +233,19 @@ class ChessPiece < ApplicationRecord
       return false
     end
     false
+  end
+
+  def move_to(x,y)
+    my_color = self.color
+    opponent = self.game.chess_pieces.where(x_position: x, y_position: y, color: !my_color)
+    if valid_move?(x,y)
+      if opponent.present?
+        self.capture(x,y)
+      end
+      if !(self.x_position == x && self.y_position == y)
+        self.update_attributes(x_position: x, y_position: y)
+        # update move count +1
+      end
+    end
   end
 end
