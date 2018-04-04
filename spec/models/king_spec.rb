@@ -116,7 +116,7 @@ RSpec.describe King, type: :model do
       end
     end
 
-    describe 'when in check and there is no way for the king to escape' do
+    describe 'when in check and there is no way for the king to escape because of 2 enemies' do
       let!(:enemy_rook) { FactoryBot.create(:rook, game_id: game.id, x_position: 0, y_position: 2, color: false) }
       let!(:enemy_rook2) { FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 2, color: false) }
 
@@ -126,6 +126,18 @@ RSpec.describe King, type: :model do
       end
     end
 
+    # The following test isn't working properly because the pawn valid_move is setup incorrectly
+    # describe 'when in check and there is no way for the king to escape because 1 enemy and blocked by friendly players' do
+    #   let!(:enemy_bishop) { FactoryBot.create(:bishop, game_id: game.id, x_position: 5, y_position: 5, color: false) }
+    #   let!(:friendly_pawn) { FactoryBot.create(:pawn, game_id: game.id, x_position: 1, y_position: 0, color: true) }
+    #   let!(:friendly_pawn2) { FactoryBot.create(:pawn, game_id: game.id, x_position: 0, y_position: 1, color: true) }
+    #
+    #   it 'returns true' do
+    #     binding.pry
+    #     expect(king.checkmate?).to eq true
+    #   end
+    # end
+
     describe 'when in check and there is a way for the king to escape' do
       let!(:enemy_rook) { FactoryBot.create(:rook, game_id: game.id, x_position: 0, y_position: 2, color: false) }
 
@@ -134,7 +146,50 @@ RSpec.describe King, type: :model do
       end
     end
 
-    describe 'when in check '
+    describe 'when in check, and there is no way to escape, and there is more than 1 enemy piece causing check' do
+      let!(:friendly_rook) { FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 1, color: true) }
+      let!(:enemy_rook) { FactoryBot.create(:rook, game_id: game.id, x_position: 0, y_position: 5, color: false) }
+      let!(:enemy_rook2) { FactoryBot.create(:rook, game_id: game.id, x_position: 5, y_position: 0, color: false) }
+
+      it 'returns true' do
+        expect(king.checkmate?).to eq true
+      end
+    end
+
+    describe 'when in check, and there is no way for the king to escape, and there is no way to block the enemy, 
+      but the enemy can be captured' do
+      let!(:friendly_bishop) { FactoryBot.create(:bishop, game_id: game.id, x_position: 1, y_position: 0, color: true) }
+      let!(:friendly_bishop2) { FactoryBot.create(:bishop, game_id: game.id, x_position: 0, y_position: 1, color: true) } 
+      let!(:enemy_bishop) { FactoryBot.create(:bishop, game_id: game.id, x_position: 5, y_position: 5, color: false) }
+      let!(:friendly_rook) { FactoryBot.create(:rook, game_id: game.id, x_position: 6, y_position: 5, color: true) }
+
+      it 'returns true' do 
+        expect(king.checkmate?).to eq false
+      end
+    end
+
+    # Test is failing because bishop's valid_move is setup incorrectly.  Bishop can move from 1,0 to 1,1.  This is incorrect.
+    # describe 'when in check, and there is no way for the king to escape, and there is no way to block the enemy, 
+    #   and the enemy can not be captured' do
+    #   let!(:friendly_bishop) { FactoryBot.create(:bishop, game_id: game.id, x_position: 1, y_position: 0, color: true) }
+    #   let!(:friendly_bishop2) { FactoryBot.create(:bishop, game_id: game.id, x_position: 0, y_position: 1, color: true) } 
+    #   let!(:enemy_bishop) { FactoryBot.create(:bishop, game_id: game.id, x_position: 5, y_position: 5, color: false) }
+
+    #   it 'returns true' do 
+    #     binding.pry
+    #     expect(king.checkmate?).to eq true
+    #   end
+    # end
+
+    describe 'when in check, and there is no way for the king to escape, but the enemy can be blocked' do 
+      let!(:friendly_rook) { FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 0, color: true) }
+      let!(:friendly_rook2) { FactoryBot.create(:rook, game_id: game.id, x_position: 0, y_position: 1, color: true) }
+      let!(:enemy_bishop) { FactoryBot.create(:bishop, game_id: game.id, x_position: 5, y_position: 5, color: false) }
+
+      it 'returns false' do 
+        expect(king.checkmate?).to eq false
+      end
+    end
   end
 
   describe '#can_escape_from_check?' do
