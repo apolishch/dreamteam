@@ -26,8 +26,9 @@ class ChessPiece < ApplicationRecord
       pieces_in_the_way = []
       self.game.chess_pieces.each do |piece|
         if piece != self
-          (piece.y_position == y) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1])
-          pieces_in_the_way << piece
+          if (piece.y_position == y) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1])
+            pieces_in_the_way << piece
+          end
         end
       end
 
@@ -38,8 +39,9 @@ class ChessPiece < ApplicationRecord
       self.game.chess_pieces.each do |piece|
       # binding.pry
         if piece != self
-          (piece.x_position == x) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
-          pieces_in_the_way << piece
+          if (piece.x_position == x) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
+            pieces_in_the_way << piece
+          end
         end
       end
 
