@@ -46,10 +46,25 @@ class GamesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+  
+  def forfeit_game
+    @game = Game.find_by_id(params[:id])
+    if current_user.id == @game.user_id
+      @game.update_attributes(winner_id: @game.opponent_id)
+      flash[:notice] = "You've lost. You gave up. We might not let you play again..."
+      redirect_to game_path(@game)
+    elsif current_user.id == @game.opponent_id
+      @game.update_attributes(winner_id: @game.user_id)
+      flash[:notice] = "You've lost. You gave up. We might not let you play again..."
+      redirect_to game_path(@game)
+    else
+      render plain: "We couldn't forfeit the game. I guess you could try again if you really want to lose that way."
+    end
+  end
 
   private
 
   def game_params
-    params.require(:game).permit(:game_name, :opponent_id)
+    params.require(:game).permit(:game_name, :opponent_id, :winner_id)
   end
 end

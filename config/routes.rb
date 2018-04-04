@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'games#home'
-  resources :games do 
+  resources :games do
+    patch 'forfeit_game', on: :member
     resources :pieces, only: [:show, :update]
   end
 end
