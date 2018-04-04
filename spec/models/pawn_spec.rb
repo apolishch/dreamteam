@@ -34,7 +34,7 @@ RSpec.describe Pawn, type: :model do
     let(:white_pawn1) {FactoryBot.create(:pawn, color: true, game_id: game.id, x_position: 2, y_position: 5)}
 
     it "should be able to move 1 tile vertically"  do
-      # expect(black_pawn1.valid_move?(2, 3)).to eq true
+      expect(black_pawn1.valid_move?(2, 3)).to eq true
       expect(white_pawn1.valid_move?(2, 4)).to eq true
     end
 
@@ -44,9 +44,9 @@ RSpec.describe Pawn, type: :model do
     end
 
     it "can move 2 down if the piece color is black and piece is in starting position" do
-      black_pawn2 = FactoryBot.create(:pawn, color: false, game_id: game.id, x_position: 0, y_position: 1, promotable: false)
+      black_pawn2 = FactoryBot.create(:pawn, color: false, game_id: game.id, x_position: 5, y_position: 1, promotable: false)
 
-      expect(black_pawn2.valid_move?(0, 3)).to eq true
+      expect(black_pawn2.valid_move?(5, 3)).to eq true
     end
 
     it "can move 2 up if the color is white and piece is in starting position" do
