@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:show, :new, :create]
+  before_action :authenticate_user!, only: [:show, :new, :update, :create]
 
   def home
   end

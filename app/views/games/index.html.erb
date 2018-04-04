@@ -10,7 +10,7 @@
         <h6 class="text-center">Opponent: <%= substring %> </h6>
         <%= image_tag "image2.jpg", class: "index-resize" %>
         <hr />
-        <% if current_user.id == single.user_id %>
+        <% if current_user.try(:id) == single.user_id %>
         <div class="button">
           <%= link_to "Continue game", game_path(single.id), method: :put, class: 'btn btn-info' %>
         </div>
