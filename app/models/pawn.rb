@@ -3,6 +3,9 @@ class Pawn < ChessPiece
 
   def valid_direction?(x, y)
     if (self.color == true) && (y < self.y_position)
+      puts self.color
+      puts y
+      puts self.y_position
       true
     elsif (self.color == false) && (y > self.y_position)
       true
@@ -39,12 +42,16 @@ class Pawn < ChessPiece
     end
   end
 
+
   def valid_move?(x, y)
     if (x == self.x_position) && (y == self.y_position) # If trying to move to same position as piece´s current position
+      puts 'in first position'
       false
-    # elsif self.is_obstructed?(x, y) == true # Pawn can't be obstructed
-    #   false
+    elsif self.is_obstructed?(x, y) # Pawn can't be obstructed
+      puts 'in second position'
+      false
     elsif !self.valid_direction?(x, y) # Not allowed to move backwards
+      puts 'in third position'
       false
     elsif ((y - self.y_position).abs == 1) && (x == self.x_position) # If piece moves 1 tile vertically
       true
@@ -55,6 +62,7 @@ class Pawn < ChessPiece
     elsif self.en_passant?(x, y)
       true
     else
+      puts 'in last position'
       false
     end
   end
