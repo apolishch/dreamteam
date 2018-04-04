@@ -216,6 +216,7 @@ RSpec.describe King, type: :model do
         expect(king2.can_escape_from_check?).to eq(false)
       end
     end
+  end
 
   describe '#castling' do
     let(:game) {FactoryBot.create(:game)}
