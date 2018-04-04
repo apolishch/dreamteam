@@ -45,6 +45,14 @@ class GamesController < ApplicationController
     end
   end
 
+  def update_move_count
+    @game = Game.find_by_id(params[:id])
+    @game.moves.count += 1
+    @game.save
+  end
+
+
+
   private
 
   def game_params
