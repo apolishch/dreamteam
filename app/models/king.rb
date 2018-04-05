@@ -13,7 +13,7 @@ class King < ChessPiece
     end
 
     def can_castle?(x, y)
-       #return false if !self.is_obstructed?(x, y)
+       return false if !self.is_obstructed?(x, y)
        return false if !self.has_moved?
        return false if !self._has_rook_moved?(x, y)
         

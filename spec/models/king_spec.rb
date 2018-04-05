@@ -261,7 +261,7 @@ RSpec.describe King, type: :model do
       expect(result).to eq(true)
     end
 
-    xit '#can_castle? returns false when piece(s) are obstructing castle' do
+    it '#can_castle? returns false when piece(s) are obstructing castle' do
       knight_right = FactoryBot.create(:knight, color: true, game_id: game.id, x_position: 6, y_position: 0)
       
 
