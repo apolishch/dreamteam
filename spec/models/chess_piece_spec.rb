@@ -260,7 +260,6 @@ RSpec.describe ChessPiece, type: :model do
       let!(:king) { FactoryBot.create :king, game: game, x_position: 4, y_position: 6, color: true }
 
       it 'updates the coordinates to the location coordinates' do 
-        # binding.pry
         king.move_to(5,6)
         expect(king.x_position).to eq(5)
         expect(king.y_position).to eq(6)
@@ -280,15 +279,18 @@ RSpec.describe ChessPiece, type: :model do
       end
     end
 
-    # describe 'if desired location coordinates are occupied by a piece of a different color' do 
-    #   let!(:king) { FactoryBot.create :king, game: game, x_position: 4, y_position: 6, color: true }
-    #   let!(:pawn) { FactoryBot.create :pawn, game: game, x_position: 5, y_position: 6, color: false }
+    describe 'if desired location coordinates are occupied by a piece of a different color' do 
+      let!(:king) { FactoryBot.create :king, game: game, x_position: 4, y_position: 6, color: true }
+      let!(:pawn) { FactoryBot.create :pawn, game: game, x_position: 5, y_position: 6, color: false }
 
-    #   it 'updates the coordinates of the king and deletes the pawn' do 
-    #     king.move_to(5,6)
-    #     expect(king.x_position).to eq(5)
-    #     expect(king.y_position).to eq(6)
-    #     expect pawn
+      it 'updates the coordinates of the king and deletes the pawn' do 
+        # binding.pry
+        king.move_to(5,6)
+        expect(king.x_position).to eq(5)
+        expect(king.y_position).to eq(6)
+        expect(ChessPiece.find_by(id: pawn.id)).to be_nil
+      end
+    end
 
   end
 

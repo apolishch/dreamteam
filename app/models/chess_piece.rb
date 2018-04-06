@@ -3,21 +3,15 @@ class ChessPiece < ApplicationRecord
 
 
   def valid_move?(x, y, color=nil)
+    # binding.pry
     if !(self.moving_on_board?(x, y))
       return false
-    # elsif self.capture(x,y) 
-    #   return true
-    elsif self.is_obstructed?(x, y)
+    elsif self.is_obstructed?(x, y) && @pieces_in_the_way.count > 1
       return false
-
-      # binding.pry
-      # if self.capture(x,y)
-      #   self.capture(x,y) 
-      # else 
-      #   return false
-      # end
-    # elsif self.same_color?(color)
-    #   return false
+    elsif self.is_obstructed?(x, y) && @pieces_in_the_way.first.color == self.color
+      return false
+    elsif self.is_obstructed?(x, y) && @pieces_in_the_way.first.x_position != x && @pieces_in_the_way.first.y_position != y
+      return false
     else
       true
     end
@@ -31,36 +25,38 @@ class ChessPiece < ApplicationRecord
       false
 
     elsif y == self.y_position # If target is located horizontally, meaning on the same column as current position
-      pieces_in_the_way = []
+      @pieces_in_the_way = []
       self.game.chess_pieces.each do |piece|
         if piece != self
-          (piece.y_position == y) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1])
-          pieces_in_the_way << piece
+          if (piece.y_position == y) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1])
+            @pieces_in_the_way << piece
+          end
         end
       end
 
-      !pieces_in_the_way.empty?
+      !@pieces_in_the_way.empty?
 
     elsif x == self.x_position # If target is located vertically - Same row
-      pieces_in_the_way = []
+      @pieces_in_the_way = []
       self.game.chess_pieces.each do |piece|
       # binding.pry
         if piece != self
-          (piece.x_position == x) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
-          pieces_in_the_way << piece
+          if (piece.x_position == x) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
+            @pieces_in_the_way << piece
+          end
         end
       end
 
-      !pieces_in_the_way.empty?
+      !@pieces_in_the_way.empty?
 
     elsif (x - self.x_position).abs == (y-self.y_position).abs # If target is located diagonally from starting position
 
-      pieces_in_the_way = self.game.chess_pieces.select do |piece|
+      @pieces_in_the_way = self.game.chess_pieces.select do |piece|
         next false if piece == self
         ((x - piece.x_position).abs == (y - piece.y_position).abs) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1]) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
       end
 
-      !pieces_in_the_way.empty?
+      !@pieces_in_the_way.empty?
 
     else
       false
