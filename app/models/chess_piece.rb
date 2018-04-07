@@ -237,10 +237,11 @@ class ChessPiece < ApplicationRecord
     if valid_move?(x,y)
       if opponent.present?
         self.capture(x,y)
+        game.change_turn
       end
       if !(self.x_position == x && self.y_position == y)
         self.update_attributes(x_position: x, y_position: y)
-        # update move count +1
+        game.change_turn
       end
     end
   end

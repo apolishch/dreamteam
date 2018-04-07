@@ -82,5 +82,17 @@ RSpec.describe GamesController, type: :controller do
     end
   end
 
+  describe "#change_turn" do 
+    let(:user) { FactoryBot.create(:user) }
+    let(:user2) { FactoryBot.create(:user) }
+    let(:game) { FactoryBot.create :game, turn: user.id, user_id: user.id, opponent_id: user2.id }
 
+    it "should check if the game's turn changed" do 
+    game.change_turn
+    expect(game.turn).to eq user2.id    
+    game.change_turn
+    expect(game.turn).to eq user.id
+    
+    end
+  end
 end

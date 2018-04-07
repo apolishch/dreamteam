@@ -254,15 +254,21 @@ RSpec.describe ChessPiece, type: :model do
   end
 
   describe '#move_to' do 
-    let(:game) { FactoryBot.create :game }
+    let(:user) { FactoryBot.create(:user) }
+    let(:user2) { FactoryBot.create(:user) }
+    let(:game) { FactoryBot.create :game, turn: user.id, user_id: user.id, opponent_id: user2.id }
+
 
     describe 'if desired location coordinates are not occupied' do
       let!(:king) { FactoryBot.create :king, game: game, x_position: 4, y_position: 6, color: true }
 
       it 'updates the coordinates to the location coordinates' do 
+        # binding.pry
         king.move_to(5,6)
         expect(king.x_position).to eq(5)
         expect(king.y_position).to eq(6)
+        expect(game.turn).to eq user2.id
+
         # expect { king.move_to(5,6) }.to change{king.x_position}.to(5)
         # expect { king.y_position }.to eq(6)
       end
@@ -295,8 +301,13 @@ RSpec.describe ChessPiece, type: :model do
   end
 
   describe '#capture' do 
-    let(:game) {FactoryBot.create(:game)}
-    let!(:king) { FactoryBot.create :king, game: game, x_position: 4, y_position: 6, color: true }
+    # user = FactoryBot.create(:user)
+    # user2 = FactoryBot.create(:user)
+    # sign_in user 
+    # sign_in user2
+    # let(:game) { FactoryBot.create(:game, user_id: 1, opponent_id: 2, turn: 1) }
+    let(:game) { FactoryBot.create(:game) }
+    let!(:king) { FactoryBot.create(:king, game: game, x_position: 4, y_position: 6, color: true) }
     let!(:capture_pawn) {FactoryBot.create(:pawn, game_id: game.id, x_position: 5, y_position: 6, color: false)}
     let!(:good_pawn) {FactoryBot.create(:pawn, game_id: game.id, x_position: 3, y_position: 6, color: true)}
 
@@ -305,6 +316,7 @@ RSpec.describe ChessPiece, type: :model do
       expect(king.x_position).to eq(5) # Expect current piece to move to that position
       expect(king.y_position).to eq(6) # Expect current piece to move to that position
       expect(ChessPiece.find_by(id: capture_pawn.id)).to be_nil
+
     end
 
     it 'should do nothing if there is no opponent piece' do
@@ -314,6 +326,7 @@ RSpec.describe ChessPiece, type: :model do
     end
 
     it 'should do nothing if the piece you are trying to capture is the same color' do
+      # binding.pry
       king.capture(3,6)
       expect(king.x_position).to eq(4)
       expect(king.y_position).to eq(6)

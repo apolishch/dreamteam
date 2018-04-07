@@ -62,5 +62,13 @@ class Game < ApplicationRecord
       "color = ? and state != 'off-board'",
       color).to_a
   end
+
+  def change_turn
+    if turn == user_id
+      update_attributes(turn: opponent_id)
+    else 
+      update_attributes(turn: user_id)
+    end
+  end
     
 end
