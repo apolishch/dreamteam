@@ -255,7 +255,6 @@ RSpec.describe King, type: :model do
     end
 
     it '#can_castle? returns true when no pieces have been moved and king is not obstructed' do
-      
       result = king.can_castle?(7, 0)
 
       expect(result).to eq(true)
@@ -278,7 +277,40 @@ RSpec.describe King, type: :model do
 
       expect(result).to eq(false)
     end
+  end
 
+  describe '#can_castle? with #in_check?' do
+    let(:game) {FactoryBot.create(:game)}
+    let!(:king_b) {FactoryBot.create(:king, game_id: game.id, x_position: 3, y_position: 0, color: false)}
+    let!(:rook_b) {FactoryBot.create(:rook, game_id: game.id, x_position: 7, y_position: 0, color: false)}
+    
+    it '#can_castle? returns false if king is in check' do
+      rook_w = FactoryBot.create(:rook, game_id: game.id, x_position: 3, y_position: 3, color: true)
+      expect(king_b.can_castle?(7, 0)).to eq(false)
+    end
+
+    it '#can_castle? returns true if king is not in check' do
+      expect(king_b.can_castle?(7, 0)).to eq(true)
+    end
+
+    it '#can_castle? returns false if king is in check in any spot in-between' do
+      rook_w = FactoryBot.create(:rook, game_id: game.id, x_position: 5, y_position: 3, color: true)
+      expect(king_b.can_castle?(7, 0)).to eq(false)
+    end
+  end
+
+  describe '#castle_will_cause_check' do
+    let(:game) {FactoryBot.create(:game)}
+    let!(:king_b) {FactoryBot.create(:king, game_id: game.id, x_position: 3, y_position: 0, color: false)}
+   
+    it 'return false when position will cause check' do 
+      rook_w = FactoryBot.create(:rook, game_id: game.id, x_position: 3, y_position: 3, color: true)
+      expect(king_b.castle_will_cause_check?(7, 0)).to eq(false)
+    end
+
+    it 'return true when position will not cause check' do 
+      expect(king_b.castle_will_cause_check?(7, 0)).to eq(true)
+    end
   end
     
   describe '#opponent_pieces' do
@@ -328,24 +360,24 @@ RSpec.describe King, type: :model do
       end
   end
   
-    describe '#in_check?' do
-      let(:game) {FactoryBot.create(:game)}
-      let!(:queen_b) {FactoryBot.create(:queen, game_id: game.id, x_position: 1, y_position: 5, color: false)}
-      let!(:queen_w) {FactoryBot.create(:queen, game_id: game.id, x_position: 3, y_position: 4, color: true)}
-      let!(:king_b) {FactoryBot.create(:king, game_id: game.id, x_position: 3, y_position: 2, color: false)}
-      let!(:king_w) {FactoryBot.create(:king, game_id: game.id, x_position: 5, y_position: 4, color: true)}
-      let!(:rook_b) {FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 2, color: false)}
-      let!(:rook_w) {FactoryBot.create(:rook, game_id: game.id, x_position: 5, y_position: 3, color: true)}
-      
-      it 'returns true if the user\'s king is in check' do
-          expect(king_b.in_check?).to eq(true)
-      end
-      
-      it 'returns false if a user\'s king is not in check' do
-          expect(king_w.in_check?).to eq(false)
-      end
+  describe '#in_check?' do
+    let(:game) {FactoryBot.create(:game)}
+    let!(:queen_b) {FactoryBot.create(:queen, game_id: game.id, x_position: 1, y_position: 5, color: false)}
+    let!(:queen_w) {FactoryBot.create(:queen, game_id: game.id, x_position: 3, y_position: 4, color: true)}
+    let!(:king_b) {FactoryBot.create(:king, game_id: game.id, x_position: 3, y_position: 2, color: false)}
+    let!(:king_w) {FactoryBot.create(:king, game_id: game.id, x_position: 5, y_position: 4, color: true)}
+    let!(:rook_b) {FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 2, color: false)}
+    let!(:rook_w) {FactoryBot.create(:rook, game_id: game.id, x_position: 5, y_position: 3, color: true)}
+    
+    it 'returns true if the user\'s king is in check' do
+        expect(king_b.in_check?).to eq(true)
     end
-  
+    
+    it 'returns false if a user\'s king is not in check' do
+        expect(king_w.in_check?).to eq(false)
+    end
+  end
+
 end
 
 
