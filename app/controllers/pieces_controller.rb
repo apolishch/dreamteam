@@ -1,5 +1,6 @@
 class PiecesController < ApplicationController
   before_action :authenticate_user!, only: [:show, :update]
+  # require 'pry';
 
 
   def show
@@ -29,6 +30,7 @@ class PiecesController < ApplicationController
 
   def create_move(x, y)
     @move = Move.new(game_id: @game.id, chess_piece_id: @piece.id, x_position: x, y_position: y, new_x_position: @piece.x_position, new_y_position: @piece.y_position)
+    # binding.pry
     @move.save!
   end
 
