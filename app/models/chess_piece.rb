@@ -1,7 +1,6 @@
 class ChessPiece < ApplicationRecord
   belongs_to :game
   has_many :moves
-  accepts_nested_attributes_for :moves
 
   def has_moved?
     self.created_at == updated_at

@@ -14,10 +14,12 @@ class PiecesController < ApplicationController
   def update
     @piece = ChessPiece.find(params[:id])
     @game = Game.find_by_id(@piece.game_id)
-    @move = @piece.moves.all
+
+    original_x = @piece.x_position
+    original_y = @piece.y_position
 
     @piece.update_attributes(pieces_params)
-    update_moves
+    create_move(original_x, original_y)
     if @piece.valid?
      redirect_to game_path(@game)
     else
@@ -25,12 +27,9 @@ class PiecesController < ApplicationController
     end
   end
 
-  def update_moves
-    puts "The piece has been updated dudes!"
-    @piece = ChessPiece.find(params[:id])
-    @piece.moves.update(count: 19991)
-    @piece.save
-    puts @piece.moves.count
+  def create_move(x, y)
+    @move = Move.new(game_id: @game.id, chess_piece_id: @piece.id, x_position: x, y_position: y, new_x_position: @piece.x_position, new_y_position: @piece.y_position)
+    @move.save!
   end
 
   private
