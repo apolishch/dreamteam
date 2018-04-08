@@ -2,16 +2,20 @@ class Rook < ChessPiece
 
   belongs_to :game
 
-  def valid_move?(new_x_position, new_y_position, color=nil)
-    super
-    if (new_x_position == self.x_position && new_y_position != self.y_position)
-      true
-    elsif (new_y_position == self.y_position && new_x_position != self.x_position)
-      true
-    else
-      false
+    def valid_move?(new_x_position, new_y_position, color=nil)
+        super
+        if (new_x_position == self.x_position && new_y_position != self.y_position)
+        true
+        elsif (new_y_position == self.y_position && new_x_position != self.x_position)
+        true
+        else
+        false
+        end
     end
-  end
+    
+    def has_moved?
+        super
+    end
 end
 
 # Return == true || false
