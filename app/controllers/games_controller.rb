@@ -40,14 +40,30 @@ class GamesController < ApplicationController
     @game = current_user.games.create(game_params)
     if @game.valid?
       @game.populate_board
-
       redirect_to game_path(@game)
     else
       render :new, status: :unprocessable_entity
     end
   end
 
+
   private
+
+  def update_board
+    @game = Game.find_by_id(params[:id])
+    @game.save
+  
+  end
+
+  def update_moves
+    @game = Game.find_by_id(params[:id])
+    @game.chess_pieces.update_attributes()
+    end
+  end
+
+  def update_moves
+    Move.create(type: @chess_piece.type, x_position: @chess_piece.x_position, y_position: @chess_piece.y_position, game_id: @game.id)
+  end
 
   def game_params
     params.require(:game).permit(:game_name, :opponent_id)

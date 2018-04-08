@@ -7,6 +7,7 @@ class Game < ApplicationRecord
   has_many :queens
   has_many :kings
   has_many :pawns
+  has_many :moves
   validates :game_name, presence: true
   # after_save :populate_board, on: :create
 
