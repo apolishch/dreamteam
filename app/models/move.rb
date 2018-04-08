@@ -1,15 +1,12 @@
 class Move < ApplicationRecord
   belongs_to :game
+  belongs_to :chess_piece
+  accepts_nested_attributes_for :chess_piece
 
-  def piece_moved?(x_position, y_position, new_x_position, new_y_position)
-    
+  def update_moves
+    piece = game.chess_pieces.find([game_id])
+    puts piece
+    puts "Cray cray if this is working!"
   end
-
-  def move_count
-
-  end
-
-
-
 
 end

@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20180405120642) do
 
   create_table "moves", force: :cascade do |t|
     t.integer "game_id"
-    t.integer "piece_id"
+    t.integer "chess_piece_id"
     t.integer "count",          default: 0
     t.integer "x_position"
     t.integer "y_position"
