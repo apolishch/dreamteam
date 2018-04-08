@@ -33,7 +33,6 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
-
   end
 
   def create
@@ -48,22 +47,6 @@ class GamesController < ApplicationController
 
 
   private
-
-  def update_board
-    @game = Game.find_by_id(params[:id])
-    @game.save
-  
-  end
-
-  def update_moves
-    @game = Game.find_by_id(params[:id])
-    @game.chess_pieces.update_attributes()
-    end
-  end
-
-  def update_moves
-    Move.create(type: @chess_piece.type, x_position: @chess_piece.x_position, y_position: @chess_piece.y_position, game_id: @game.id)
-  end
 
   def game_params
     params.require(:game).permit(:game_name, :opponent_id)
