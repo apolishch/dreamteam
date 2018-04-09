@@ -9,8 +9,14 @@ class Game < ApplicationRecord
   has_many :pawns
   validates :game_name, presence: true
   # after_save :populate_board, on: :create
-
-
+ 
+  def both_players?
+    user_id.present? && opponent_id.present?
+  end
+ 
+  def in_game?(user)
+    user.id == user_id || user.id == opponent_id
+  end
 
   def populate_board
     Rook.create(game_id: id, x_position: 0, y_position: 0, color: false, icon: "br.svg")
