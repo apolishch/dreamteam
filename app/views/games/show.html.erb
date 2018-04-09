@@ -2,6 +2,7 @@
 <h2><%= "White Pieces: #{@game.user_id}" %></h2>
 <h2><%= "Black Pieces: #{@game.opponent_id}" %></h2>
 <h2><%= "Game Winner: #{@game.winner_id}" %></h2>
+<h2><%= "Game State: #{@game.state}" %></h2>
 
 <div class="padding">
   <% if @game.winner_id == nil %>

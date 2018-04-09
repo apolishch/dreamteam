@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'games#home'
   resources :games do
-    patch 'forfeit_game', on: :member
+    patch 'forfeit', on: :member
     resources :pieces, only: [:show, :update]
   end
 end

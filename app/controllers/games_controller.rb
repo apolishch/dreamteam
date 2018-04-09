@@ -47,14 +47,14 @@ class GamesController < ApplicationController
     end
   end
   
-  def forfeit_game
+  def forfeit
     @game = Game.find_by_id(params[:id])
     if current_user.id == @game.user_id
-      @game.update_attributes(winner_id: @game.opponent_id)
+      @game.update_attributes(winner_id: @game.opponent_id, status: "complete")
       flash[:notice] = "You've lost. You gave up. We might not let you play again..."
       redirect_to game_path(@game)
     elsif current_user.id == @game.opponent_id
-      @game.update_attributes(winner_id: @game.user_id)
+      @game.update_attributes(winner_id: @game.user_id, status: "complete")
       flash[:notice] = "You've lost. You gave up. We might not let you play again..."
       redirect_to game_path(@game)
     else
