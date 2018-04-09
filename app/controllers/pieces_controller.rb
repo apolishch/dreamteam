@@ -26,7 +26,7 @@ class PiecesController < ApplicationController
   private
 
   def pieces_params
-    params.permit(:x_position, :y_position)
+    params.require(:chess_pieces).permit(:x_position, :y_position)
   end
 
 end
