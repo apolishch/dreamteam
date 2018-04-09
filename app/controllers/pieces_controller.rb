@@ -15,12 +15,11 @@ class PiecesController < ApplicationController
     @piece = ChessPiece.find(params[:id])
     @game = Game.find_by_id(@piece.game_id)
 
-
-    @piece.update_attributes(pieces_params)
-    if @piece.valid?
-     redirect_to game_path(@game)
+    if @piece.valid_move?(pieces_params[:x_position].to_i, pieces_params[:y_position].to_i)
+      @piece.update_attributes(pieces_params)
+      redirect_to game_path(@game)
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to game_path(@game), alert: "Invalid Move!"
     end
   end
 
