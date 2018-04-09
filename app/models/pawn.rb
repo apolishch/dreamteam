@@ -27,7 +27,7 @@ class Pawn < ChessPiece
   end
 
   def diagonal_move(x, y)
-    if (x - self.x_position).abs == 1 && (y - self.y_position).abs == 1
+    if ((x - self.x_position).abs == 1 && (y - self.y_position).abs == 1) && self.game.chess_pieces.find {|piece| piece.x_position == x && piece.y_position == y && piece.color != self.color}
       true
     else
       false
@@ -48,7 +48,7 @@ class Pawn < ChessPiece
   def valid_move?(x, y)
     if (x == self.x_position) && (y == self.y_position) # If trying to move to same position as piece´s current position
       false
-    elsif self.is_obstructed?(x, y) # Pawn can't be obstructed
+    elsif self.is_obstructed?(x, y) && !self.diagonal_move(x, y) # Pawn can't be obstructed
       false
     elsif !self.valid_direction?(x, y) # Not allowed to move backwards
       false

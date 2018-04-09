@@ -33,13 +33,16 @@ RSpec.describe Pawn, type: :model do
     let(:black_pawn1) {FactoryBot.create(:pawn, color: false, game_id: game.id, x_position: 2, y_position: 2)}
     let(:white_pawn1) {FactoryBot.create(:pawn, color: true, game_id: game.id, x_position: 2, y_position: 5)}
 
-    it "should be able to move 1 tile vertically"  do
+    it "should be able to move 1 tile vertically if opponent piece is located on target"  do
       expect(black_pawn1.valid_move?(2, 3)).to eq true
       expect(white_pawn1.valid_move?(2, 4)).to eq true
     end
 
     it "should be able to move diagonally if capturing" do
-      expect(black_pawn1.valid_move?(3, 3)).to eq true
+      black_pawn2 = FactoryBot.create(:pawn, color: false, game_id: game.id, x_position: 3, y_position: 4)
+      white_pawn2 = FactoryBot.create(:pawn, color: true, game_id: game.id, x_position: 1, y_position: 3)
+
+      expect(black_pawn1.valid_move?(1, 3)).to eq true
       expect(white_pawn1.valid_move?(3, 4)).to eq true
     end
 
