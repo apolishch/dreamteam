@@ -11,12 +11,12 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by_id(params[:id])
-    if !@game.in_game?(current_user)
-      redirect_to games_path, alert: "Couldn\'t join the game as not a player."
-    end
-    puts @game
     if @game.blank?
-      render plain: 'Not Found :(', status: :not_found
+      redirect_to games_path, alert: 'Sorry Game Not Found :(', status: :not_found
+    elsif !@game.in_game?(current_user)
+      redirect_to games_path, alert: "Couldn\'t join the game as not a player."
+    else
+      puts @game
     end
   end
 

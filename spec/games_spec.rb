@@ -10,15 +10,15 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to new_user_session_path
     end
 
-    it "should successfully show the page if the gram is found" do
-      user = FactoryBot.create(:user)
+    it "should successfully show the page if the game is found" do
+      user = FactoryBot.create(:user, id: 1)
       sign_in user
-      game = FactoryBot.create(:game)
-      get :show, params: { id: game.id }
+      game = FactoryBot.create(:game, user_id: 1)
+      get :show, params: { id: game.id, current_user: user }
       expect(response).to have_http_status(:success)
     end
 
-    it "should return a 404 error if the gram is not found" do
+    it "should return a 'not found' error if the game is not found" do
       user = FactoryBot.create(:user)
       sign_in user
       get :show, params: { id: 'KWANZAA' }
@@ -35,7 +35,6 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "games#new action" do
-
     it "should require users to be logged in" do
       get :new
       expect(response).to redirect_to new_user_session_path
@@ -47,8 +46,6 @@ RSpec.describe GamesController, type: :controller do
       get :new
       expect(response).to have_http_status(:success)
     end
-
-
   end
 
   describe "games#create action" do
@@ -61,7 +58,6 @@ RSpec.describe GamesController, type: :controller do
     it "should successfully create a new game in our database" do
       user = FactoryBot.create(:user)
       sign_in user
-
       post :create, params: { game: { game_name: 'Hello!' } }
       gameid = Game.last.id 
       expect(response).to redirect_to game_path(gameid)
@@ -74,13 +70,11 @@ RSpec.describe GamesController, type: :controller do
     it "should properly deal with validation errors" do
       user = FactoryBot.create(:user)
       sign_in user
-
       game_count = Game.count
       post :create, params: { game: { game_name: '' } }
       expect(response).to have_http_status(:unprocessable_entity)
       expect(game_count).to eq Game.count
     end
   end
-
 
 end
