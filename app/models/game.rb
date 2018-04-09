@@ -11,6 +11,10 @@ class Game < ApplicationRecord
   # after_save :populate_board, on: :create
 
 
+  def set_game_to_draw(game)
+    game.update_attributes(status: "draw")
+  end
+
 
   def populate_board
     Rook.create(game_id: id, x_position: 0, y_position: 0, color: false, icon: "br.svg")

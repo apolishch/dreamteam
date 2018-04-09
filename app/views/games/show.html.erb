@@ -1,11 +1,14 @@
 <h1><%= @game.game_name %></h1>
+<h2><%= @game.id %></h2>
 <h2><%= "White Pieces: #{@game.user_id}" %></h2>
 <h2><%= "Black Pieces: #{@game.opponent_id}" %></h2>
-
+<h2><%= "Game Status: #{@game.status}" %></h2>
 
 <div class="padding">
   <h1 class="title">Chess Board</h1>
-
+  <% if @game.status == "draw" %>
+    <%= "Game is Over. It was a draw" %>
+    <% else %>
   <table class="board">
     <tr>
       <td class="square light">
@@ -280,6 +283,7 @@
       </td>
     </tr>
   </table>
+  <% end %>
 </div>
 
 <% if current_user == @game.user_id %>
