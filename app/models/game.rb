@@ -33,7 +33,7 @@ class Game < ApplicationRecord
 
   private
 
-  def populate_boundary_pieces(column, color)
+  def populate_boundary_pieces(row, color)
     svgblack = ["br.svg", "bn.svg", "bb.svg", "bq.svg", "bk.svg", "bb.svg", "bn.svg", "br.svg"]
     svgwhite = ["wr.svg", "wn.svg", "wb.svg", "wq.svg", "wk.svg", "wb.svg", "wn.svg", "wr.svg"]
     svg = color ? svgwhite : svgblack
@@ -43,12 +43,12 @@ class Game < ApplicationRecord
         piece = klass.create(game_id: id,
                              color: color,
                              x_position: index,
-                             y_position: column,
+                             y_position: row,
                              icon: svg[index])
       end
   end
 
-  def populate_interior_pieces(column, color)
+  def populate_interior_pieces(row, color)
     svg = ["wp.svg", "bp.svg"]
     icon = color ? svg[0] : svg[1]
 
@@ -56,7 +56,7 @@ class Game < ApplicationRecord
       piece = Pawn.create(game_id: id,
                           color: color,
                           x_position: index,
-                          y_position: column,
+                          y_position: row,
                           icon: icon)
     end
   end
