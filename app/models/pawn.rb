@@ -17,9 +17,9 @@ class Pawn < ChessPiece
   end
 
   def first_move?(x, y)
-    if (self.color == false) && (self.y_position == 1) && (self.promotable == false) && ((y - self.y_position).abs == 2)
+    if (self.color == false) && (self.y_position == 1) && ((y - self.y_position).abs == 2)
       true
-    elsif (self.color == true) && (self.y_position == 6) && (self.promotable == false) && ((y - self.y_position).abs == 2)
+    elsif (self.color == true) && (self.y_position == 6) && ((y - self.y_position).abs == 2)
       true
     else
       false
@@ -27,7 +27,7 @@ class Pawn < ChessPiece
   end
 
   def diagonal_move(x, y)
-    if ((x - self.x_position).abs == 1 && (y - self.y_position).abs == 1) && self.game.chess_pieces.find {|piece| piece.x_position == x && piece.y_position == y && piece.color != self.color}
+    if ((x - self.x_position).abs == 1 && (y - self.y_position).abs == 1) && self.game.chess_pieces.find {|piece| piece.x_position == x && piece.y_position == y && piece.color != self.color} # Diagonal move where target has an opponent piece
       true
     else
       false
@@ -35,9 +35,9 @@ class Pawn < ChessPiece
   end
 
   def en_passant?(x, y)
-    if (self.color == false) && (self.y_position == 4) && (self.diagonal_move(x, y) == true) && (@game[y - 1][self.x_position].color == true) # when moving right behind opponent pawn
+    if (self.color == false) && (self.y_position == 4) && ((x - self.x_position).abs == 1) && ((y - self.y_position).abs == 1) && self.game.chess_pieces.find {|piece| piece.x_position == x && piece.y_position == y - 1 && piece.color != self.color}  # when moving right behind opponent pawn
       true
-    elsif (self.color == true) && (self.y_position == 3) && (self.diagonal_move(x, y) == true) && (@game[y + 1][self.x_position].color == false) # when moving right behind opponent pawn
+    elsif (self.color == true) && (self.y_position == 3) && ((x - self.x_position).abs == 1) && ((y - self.y_position).abs == 1) && self.game.chess_pieces.find {|piece| piece.x_position == x && piece.y_position == y + 1 && piece.color != self.color}  # when moving right behind opponent pawn
       true
     else
       false
@@ -56,7 +56,7 @@ class Pawn < ChessPiece
       true
     elsif self.diagonal_move(x, y) # Diagonal capture where there is a piece present on target destination
       true
-    elsif (self.valid_direction?(x, y)) && (self.first_move?(x, y))
+    elsif self.valid_direction?(x, y) && self.first_move?(x, y) # If moving 2 tiles vertically on the first move
       true
     elsif self.en_passant?(x, y)
       true
