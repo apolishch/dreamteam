@@ -44,7 +44,7 @@ class Game < ApplicationRecord
                              color: color,
                              x_position: index,
                              y_position: row,
-                             icon: color ? svgwhite[index] : svgblack[index])
+                             icon: svg[index])
       end
   end
 
