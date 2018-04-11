@@ -280,6 +280,7 @@ RSpec.describe ChessPiece, type: :model do
 
       it 'does not update the coordinates of the king' do 
         king.move_to(5,6)
+        # binding.pry
         expect(king.x_position).to eq(4)
         expect(king.y_position).to eq(6)
       end
