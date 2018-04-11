@@ -1,6 +1,4 @@
 <h1><%= @game.game_name %></h1>
-<h2><%= "White Pieces: #{@game.user_id}" %></h2>
-<h2><%= "Black Pieces: #{@game.opponent_id}" %></h2>
 
 
 <div class="padding">
@@ -10,79 +8,79 @@
     <tr>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 0)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 0)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 0)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 0)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 0)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 0)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 0)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 0)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
     </tr>
     <tr>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 1)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 1)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 1)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 1)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 1)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 1)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 1)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 1)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
     </tr>
     <tr>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 2)
-         link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+         link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 2)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 2)
@@ -90,193 +88,193 @@
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 2)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 2)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 2)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 2)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 2)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
     </tr>
     <tr>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 3)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 3)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 3)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 3)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 3)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 3)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 3)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 3)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
     </tr>
     <tr>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 4)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 4)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 4)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 4)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 4)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 4)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 4)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 4)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
     </tr>
     <tr>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 5)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 5)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 5)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 5)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 5)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 5)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 5)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 5)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
     </tr>
     <tr>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 6)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 6)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 6)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 6)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 6)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 6)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 6)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 6)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
     </tr>
     <tr>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 7)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 7)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 7)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 7)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 7)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 7)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square dark">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 7)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
       <td class="square light">
         <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 7)
-        link_to piece.empty? ? "available" : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
+        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@game.id, piece.take.id) if !piece.empty? %>
       </td>
     </tr>
   </table>
