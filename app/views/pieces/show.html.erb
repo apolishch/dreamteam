@@ -2,294 +2,34 @@
 
 <div class="padding">
   <h1 class="title">Chess Board</h1>
+  
   <table class="board">
-    <tr>
-      <%# styling %>
-      <%# class=<%= @current_piece.x_position == 0 && @current_piece.y_position == 0 ? "current-piece-dark" : "dark square" %>
-      <td class=<%= @current_piece.x_position == 0 && @current_piece.y_position == 0 ? "current-piece-light" : "light square" %>>
-        <%= link_to game_piece_path(@current_piece, x_position: 0, y_position: 0), method: :put do %>
-          <% piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 0) %>
-          <% if piece.empty? %>
-            <div></div>
-          <% else %>
-            <%= image_tag(piece.take.icon) %>
+    <% (0..7).each do |tr_index_location| %>
+      <tr>
+        <% (0..7).each do |td_index_location| %>
+          <% render_square_options = ["current-piece-dark", "dark square", "current-piece-light", "light square"] %>
+          <% if tr_index_location.even? %>
+            <% occupied_square_color = render_square_options[3] %>
+            <% empty_square_color = render_square_options[4] %>
+          <% elsif tr_index_location.odd? %>
+            <% occupied_square_color = render_square_options[1] %>
+            <% empty_square_color = render_square_options[2] %>
           <% end %>
+          <td class=<%= @current_piece.x_position == td_index_location && @current_piece.y_position == tr_index_location ? "#{occupied_square_color}" : "#{empty_square_color}" %>>
+            <%= "#{@current_piece.x_position} = #{td_index_location} and #{@current_piece.y_position} = #{tr_index_location}" %>
+            <%= link_to game_piece_path(@current_piece, x_position: td_index_location, y_position: tr_index_location), method: :put do %>
+              <% piece = ChessPiece.where(game_id: @game.id, x_position: td_index_location, y_position: tr_index_location) %>
+              <% if piece.empty? %>
+                <div></div>
+              <% else %>
+                <%= image_tag(piece.take.icon) %>
+              <% end %>
+            <% end %>
+          </td>
         <% end %>
-      </td>
-      <td class=<%= @current_piece.x_position == 1 && @current_piece.y_position == 0 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 0)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 1, y_position: 0), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 2 && @current_piece.y_position == 0 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 0)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 2, y_position: 0), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 3 && @current_piece.y_position == 0 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 0)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 3, y_position: 0), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 4 && @current_piece.y_position == 0 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 0)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 4, y_position: 0), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 5 && @current_piece.y_position == 0 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 0)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 5, y_position: 0), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 6 && @current_piece.y_position == 0 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 0)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 6, y_position: 0), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 7 && @current_piece.y_position == 0 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 0)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 7, y_position: 0), method: :put %>
-      </td>
-    </tr>
-    <tr>
-      <td class=<%= @current_piece.x_position == 0 && @current_piece.y_position == 1 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 1)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 1 && @current_piece.y_position == 1 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 1)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 2 && @current_piece.y_position == 1 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 1)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 3 && @current_piece.y_position == 1 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 1)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 4 && @current_piece.y_position == 1 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 1)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 5 && @current_piece.y_position == 1 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 1)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 6 && @current_piece.y_position == 1 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 1)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 7 && @current_piece.y_position == 1 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 1)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 2), method: :put %>
-      </td>
-    </tr>
-    <tr>
-      <td class=<%= @current_piece.x_position == 0 && @current_piece.y_position == 2 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 2)
-          link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 1 && @current_piece.y_position == 2 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 2)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 1, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 2 && @current_piece.y_position == 2 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 2)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 2, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 3 && @current_piece.y_position == 2 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 2)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 3, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 4 && @current_piece.y_position == 2 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 2)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 4, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 5 && @current_piece.y_position == 2 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 2)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 5, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 6 && @current_piece.y_position == 2 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 2)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 6, y_position: 2), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 7 && @current_piece.y_position == 2 ? "current-piece-dark" : "dark square" %>>
-        <%= link_to game_piece_path(@current_piece, x_position: 7, y_position: 2), method: :put do %>
-          <% piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 2) %>
-          <% if piece.empty? %>
-            <div></div>
-          <% else %>
-            <%= image_tag(piece.take.icon) %>
-          <% end %>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td class=<%= @current_piece.x_position == 0 && @current_piece.y_position == 3 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 3)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 3), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 1 && @current_piece.y_position == 3 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 3)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 1, y_position: 3), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 2 && @current_piece.y_position == 3 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 3)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 2, y_position: 3), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 3 && @current_piece.y_position == 3 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 3)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 3, y_position: 3), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 4 && @current_piece.y_position == 3 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 3)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 4, y_position: 3), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 5 && @current_piece.y_position == 3 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 3)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 5, y_position: 3), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 6 && @current_piece.y_position == 3 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 3)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 6, y_position: 3), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 7 && @current_piece.y_position == 3 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 3)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 7, y_position: 3), method: :put %>
-      </td>
-    </tr>
-    <tr>
-      <td class=<%= @current_piece.x_position == 0 && @current_piece.y_position == 4 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 4)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 4), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 1 && @current_piece.y_position == 4 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 4)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 1, y_position: 4), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 2 && @current_piece.y_position == 4 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 4)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 2, y_position: 4), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 3 && @current_piece.y_position == 4 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 4)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 3, y_position: 4), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 4 && @current_piece.y_position == 4 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 4)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 4, y_position: 4), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 5 && @current_piece.y_position == 4 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 4)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 5, y_position: 4), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 6 && @current_piece.y_position == 4 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 4)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 6, y_position: 4), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 7 && @current_piece.y_position == 4 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 4)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 7, y_position: 4), method: :put %>
-      </td>
-    </tr>
-    <tr>
-      <td class=<%= @current_piece.x_position == 0 && @current_piece.y_position == 5 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 5)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 5), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 1 && @current_piece.y_position == 5 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 5)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 1, y_position: 5), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 2 && @current_piece.y_position == 5 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 5)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 2, y_position: 5), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 3 && @current_piece.y_position == 5 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 5)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 3, y_position: 5), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 4 && @current_piece.y_position == 5 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 5)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 4, y_position: 5), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 5 && @current_piece.y_position == 5 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 5)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 5, y_position: 5), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 6 && @current_piece.y_position == 5 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 5)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 6, y_position: 5), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 7 && @current_piece.y_position == 5 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 5)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 7, y_position: 5), method: :put %>
-      </td>
-    </tr>
-    <tr>
-      <td class=<%= @current_piece.x_position == 0 && @current_piece.y_position == 6 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 6)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 6), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 1 && @current_piece.y_position == 6 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 6)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 1, y_position: 6), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 2 && @current_piece.y_position == 6 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 6)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 2, y_position: 6), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 3 && @current_piece.y_position == 6 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 6)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 3, y_position: 6), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 4 && @current_piece.y_position == 6 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 6)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 4, y_position: 6), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 5 && @current_piece.y_position == 6 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 6)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 5, y_position: 6), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 6 && @current_piece.y_position == 6 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 6)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 6, y_position: 6), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 7 && @current_piece.y_position == 6 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 6)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 7, y_position: 6), method: :put %>
-      </td>
-    </tr>
-    <tr>
-      <td class=<%= @current_piece.x_position == 0 && @current_piece.y_position == 7 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 0, y_position: 7)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 0, y_position: 7), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 1 && @current_piece.y_position == 7 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 1, y_position: 7)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 1, y_position: 7), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 2 && @current_piece.y_position == 7 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 2, y_position: 7)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 2, y_position: 7), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 3 && @current_piece.y_position == 7 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 3, y_position: 7)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 3, y_position: 7), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 4 && @current_piece.y_position == 7 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 4, y_position: 7)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 4, y_position: 7), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 5 && @current_piece.y_position == 7 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 5, y_position: 7)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 5, y_position: 7), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 6 && @current_piece.y_position == 7 ? "current-piece-dark" : "dark square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 6, y_position: 7)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 6, y_position: 7), method: :put %>
-      </td>
-      <td class=<%= @current_piece.x_position == 7 && @current_piece.y_position == 7 ? "current-piece-light" : "light square" %>>
-        <%= piece = ChessPiece.where(game_id: @game.id, x_position: 7, y_position: 7)
-        link_to piece.empty? ? "        " : image_tag(piece.take.icon), game_piece_path(@current_piece, x_position: 7, y_position: 7), method: :put %>
-      </td>
-    </tr>
-</table>
+      </tr>
+    <% end %>
+  </table>
 </div>
 
 <% if current_user == @game.user_id %>
