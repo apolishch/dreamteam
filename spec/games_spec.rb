@@ -10,11 +10,11 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to new_user_session_path
     end
 
-    it "should successfully show the page if the gram is found" do
-      user = FactoryBot.create(:user)
+    it "should successfully show the page if the game is found" do
+      user = FactoryBot.create(:user, id: 1)
       sign_in user
-      game = FactoryBot.create(:game)
-      get :show, params: { id: game.id }
+      game = FactoryBot.create(:game, user_id: 1)
+      get :show, params: { id: game.id, current_user: user }
       expect(response).to have_http_status(:success)
     end
 

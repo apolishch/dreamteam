@@ -260,9 +260,10 @@ RSpec.describe ChessPiece, type: :model do
 
 
     describe 'if desired location coordinates are not occupied' do
-      let!(:king) { FactoryBot.create :king, game: game, x_position: 4, y_position: 6, color: true }
+      let!(:king) { FactoryBot.create :king, game: game, user_id: user.id, x_position: 4, y_position: 6, color: true }
 
       it 'updates the coordinates to the location coordinates' do 
+        # binding.pry
         # binding.pry
         king.move_to(5,6)
         expect(king.x_position).to eq(5)
@@ -287,7 +288,7 @@ RSpec.describe ChessPiece, type: :model do
     end
 
     describe 'if desired location coordinates are occupied by a piece of a different color' do 
-      let!(:king) { FactoryBot.create :king, game: game, x_position: 4, y_position: 6, color: true }
+      let!(:king) { FactoryBot.create :king, user_id: user.id, game: game, x_position: 4, y_position: 6, color: true }
       let!(:pawn) { FactoryBot.create :pawn, game: game, x_position: 5, y_position: 6, color: false }
 
       it 'updates the coordinates of the king and deletes the pawn' do 
@@ -296,6 +297,17 @@ RSpec.describe ChessPiece, type: :model do
         expect(king.x_position).to eq(5)
         expect(king.y_position).to eq(6)
         expect(ChessPiece.find_by(id: pawn.id)).to be_nil
+      end
+    end
+
+    describe 'if player tries to move piece when it is not their turn' do 
+      let!(:king) { FactoryBot.create :king, user_id: user.id, game: game, x_position: 4, y_position: 6, color: true }
+      let!(:king2) { FactoryBot.create :king, user_id: user2.id, game: game, x_position: 5, y_position: 6, color: false }
+
+      it 'should not allow the piece to move' do
+        king2.move_to(6,6)
+        expect(king2.x_position).to eq(5)
+        expect(king2.y_position).to eq(6)
       end
     end
 

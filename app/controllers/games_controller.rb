@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:show, :new, :create]
+  before_action :authenticate_user!, only: [:show, :new, :update, :create]
 
   def home
   end
@@ -11,11 +11,14 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by_id(params[:id])
-    puts @game
     if @game.blank?
-      render plain: 'Not Found :(', status: :not_found
+      redirect_to games_path, alert: 'Sorry Game Not Found :(', status: :not_found
+    elsif !@game.in_game?(current_user)
+      redirect_to games_path, alert: "Couldn\'t join the game as not a player."
+    else
+      puts @game
     end
-  end
+   end
 
   def update
     @game = Game.find_by_id(params[:id])
@@ -38,6 +41,7 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.create(game_params)
+    # @game.turn = current_user
     if @game.valid?
       @game.populate_board
 

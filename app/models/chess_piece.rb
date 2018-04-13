@@ -2,6 +2,11 @@ class ChessPiece < ApplicationRecord
   belongs_to :game
 
 
+  def has_moved?
+    self.created_at == updated_at
+  end
+
+
   def valid_move?(x, y, color=nil)
     # binding.pry
     if !(self.moving_on_board?(x, y))
@@ -234,8 +239,9 @@ class ChessPiece < ApplicationRecord
   def move_to(x,y)
     my_color = self.color
     opponent = self.game.chess_pieces.where(x_position: x, y_position: y, color: !my_color)
-    if valid_move?(x,y)
+    if valid_move?(x,y) && self.user_id == game.turn
       if opponent.present?
+        # binding.pry
         self.capture(x,y)
         game.change_turn
       end
