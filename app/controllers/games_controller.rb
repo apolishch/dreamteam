@@ -36,15 +36,13 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
-
   end
 
   def create
     @game = current_user.games.create(game_params)
-    # @game.turn = current_user
     if @game.valid?
       @game.populate_board
-
+      
       redirect_to game_path(@game)
     else
       render :new, status: :unprocessable_entity

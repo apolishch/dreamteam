@@ -2,6 +2,18 @@
 <h2><%= "White Pieces: #{@game.user_id}" %></h2>
 <h2><%= "Black Pieces: #{@game.opponent_id}" %></h2>
 
+<% player1 = User.find(@game.user_id) %>
+<% if @game.opponent_id != nil %>
+  <% player2 = User.find(@game.opponent_id) %>
+<% end %>
+<% if @game.turn == player1.id %>
+  <h3>It's your turn <%= player1.email[/[^@]+/] %></h3>
+<% else %>
+  <% if @game.opponent_id != nil %>
+    <h3>It's your turn <%= player2.email[/[^@]+/] %></h3>
+  <% end %>
+<% end %> 
+
 
 <div class="padding">
   <h1 class="title">Chess Board</h1>
