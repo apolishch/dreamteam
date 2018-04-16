@@ -8,13 +8,15 @@ class ChessPiece < ApplicationRecord
 
 
   def valid_move?(x, y, color=nil)
+    # binding.pry
     if !(self.moving_on_board?(x, y))
       return false
-    elsif self.is_obstructed?(x, y)
+    elsif self.is_obstructed?(x, y) && @pieces_in_the_way.count > 1
       return false
-    # elsif self.same_color?(color)
-    #   binding.pry
-    #   return false
+    elsif self.is_obstructed?(x, y) && @pieces_in_the_way.first.color == self.color
+      return false
+    elsif self.is_obstructed?(x, y) && @pieces_in_the_way.first.x_position != x && @pieces_in_the_way.first.y_position != y
+      return false
     else
       true
     end
@@ -28,38 +30,38 @@ class ChessPiece < ApplicationRecord
       false
 
     elsif y == self.y_position # If target is located horizontally, meaning on the same column as current position
-      pieces_in_the_way = []
+      @pieces_in_the_way = []
       self.game.chess_pieces.each do |piece|
         if piece != self
           if (piece.y_position == y) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1])
-            pieces_in_the_way << piece
+            @pieces_in_the_way << piece
           end
         end
       end
 
-      !pieces_in_the_way.empty?
+      !@pieces_in_the_way.empty?
 
     elsif x == self.x_position # If target is located vertically - Same row
-      pieces_in_the_way = []
+      @pieces_in_the_way = []
       self.game.chess_pieces.each do |piece|
       # binding.pry
         if piece != self
           if (piece.x_position == x) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
-            pieces_in_the_way << piece
+            @pieces_in_the_way << piece
           end
         end
       end
 
-      !pieces_in_the_way.empty?
+      !@pieces_in_the_way.empty?
 
     elsif (x - self.x_position).abs == (y-self.y_position).abs # If target is located diagonally from starting position
 
-      pieces_in_the_way = self.game.chess_pieces.select do |piece|
+      @pieces_in_the_way = self.game.chess_pieces.select do |piece|
         next false if piece == self
         ((x - piece.x_position).abs == (y - piece.y_position).abs) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1]) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
       end
 
-      !pieces_in_the_way.empty?
+      !@pieces_in_the_way.empty?
 
     else
       false
@@ -232,5 +234,21 @@ class ChessPiece < ApplicationRecord
       return false
     end
     false
+  end
+
+  def move_to(x,y)
+    my_color = self.color
+    opponent = self.game.chess_pieces.where(x_position: x, y_position: y, color: !my_color)
+    if valid_move?(x,y) && self.user_id == game.turn
+      if opponent.present?
+        # binding.pry
+        self.capture(x,y)
+        game.change_turn
+      end
+      if !(self.x_position == x && self.y_position == y)
+        self.update_attributes(x_position: x, y_position: y)
+        game.change_turn
+      end
+    end
   end
 end

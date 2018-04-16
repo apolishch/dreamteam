@@ -108,7 +108,6 @@ RSpec.describe ChessPiece, type: :model do
 
     describe 'when king is in check and you have a piece that can capture the threatening piece' do
       it 'returns true' do
-        # binding.pry
         expect(king.in_check?).to eq(true)
         expect(enemy_rook2.can_threatening_piece_be_captured?).to eq(true)
       end
@@ -251,6 +250,99 @@ RSpec.describe ChessPiece, type: :model do
           expect(enemy_knight.can_threat_be_blocked?).to eq false
         end
       end
+    end
+  end
+
+  describe '#move_to' do 
+    let(:user) { FactoryBot.create(:user) }
+    let(:user2) { FactoryBot.create(:user) }
+    let(:game) { FactoryBot.create :game, turn: user.id, user_id: user.id, opponent_id: user2.id }
+
+
+    describe 'if desired location coordinates are not occupied' do
+      let!(:king) { FactoryBot.create :king, game: game, user_id: user.id, x_position: 4, y_position: 6, color: true }
+
+      it 'updates the coordinates to the location coordinates' do 
+        # binding.pry
+        # binding.pry
+        king.move_to(5,6)
+        expect(king.x_position).to eq(5)
+        expect(king.y_position).to eq(6)
+        expect(game.turn).to eq user2.id
+
+        # expect { king.move_to(5,6) }.to change{king.x_position}.to(5)
+        # expect { king.y_position }.to eq(6)
+      end
+    end
+
+    describe 'if desired location coordinates are occupied by a piece of the same color' do 
+      let!(:king) { FactoryBot.create :king, game: game, x_position: 4, y_position: 6, color: true }
+      let!(:pawn) { FactoryBot.create :pawn, game: game, x_position: 5, y_position: 6, color: true }
+
+      it 'does not update the coordinates of the king' do 
+        king.move_to(5,6)
+        # binding.pry
+        expect(king.x_position).to eq(4)
+        expect(king.y_position).to eq(6)
+      end
+    end
+
+    describe 'if desired location coordinates are occupied by a piece of a different color' do 
+      let!(:king) { FactoryBot.create :king, user_id: user.id, game: game, x_position: 4, y_position: 6, color: true }
+      let!(:pawn) { FactoryBot.create :pawn, game: game, x_position: 5, y_position: 6, color: false }
+
+      it 'updates the coordinates of the king and deletes the pawn' do 
+        # binding.pry
+        king.move_to(5,6)
+        expect(king.x_position).to eq(5)
+        expect(king.y_position).to eq(6)
+        expect(ChessPiece.find_by(id: pawn.id)).to be_nil
+      end
+    end
+
+    describe 'if player tries to move piece when it is not their turn' do 
+      let!(:king) { FactoryBot.create :king, user_id: user.id, game: game, x_position: 4, y_position: 6, color: true }
+      let!(:king2) { FactoryBot.create :king, user_id: user2.id, game: game, x_position: 5, y_position: 6, color: false }
+
+      it 'should not allow the piece to move' do
+        king2.move_to(6,6)
+        expect(king2.x_position).to eq(5)
+        expect(king2.y_position).to eq(6)
+      end
+    end
+
+  end
+
+  describe '#capture' do 
+    # user = FactoryBot.create(:user)
+    # user2 = FactoryBot.create(:user)
+    # sign_in user 
+    # sign_in user2
+    # let(:game) { FactoryBot.create(:game, user_id: 1, opponent_id: 2, turn: 1) }
+    let(:game) { FactoryBot.create(:game) }
+    let!(:king) { FactoryBot.create(:king, game: game, x_position: 4, y_position: 6, color: true) }
+    let!(:capture_pawn) {FactoryBot.create(:pawn, game_id: game.id, x_position: 5, y_position: 6, color: false)}
+    let!(:good_pawn) {FactoryBot.create(:pawn, game_id: game.id, x_position: 3, y_position: 6, color: true)}
+
+    it 'should delete target piece and move current piece to that position ' do
+      king.capture(5,6) # Capture position of opponent piece
+      expect(king.x_position).to eq(5) # Expect current piece to move to that position
+      expect(king.y_position).to eq(6) # Expect current piece to move to that position
+      expect(ChessPiece.find_by(id: capture_pawn.id)).to be_nil
+
+    end
+
+    it 'should do nothing if there is no opponent piece' do
+      king.capture(6,6)
+      expect(king.x_position).to eq(4)
+      expect(king.y_position).to eq(6)
+    end
+
+    it 'should do nothing if the piece you are trying to capture is the same color' do
+      # binding.pry
+      king.capture(3,6)
+      expect(king.x_position).to eq(4)
+      expect(king.y_position).to eq(6)
     end
   end
 end

@@ -8,6 +8,7 @@ class Game < ApplicationRecord
   has_many :kings
   has_many :pawns
   validates :game_name, presence: true
+  after_create :set_default_turn
   # after_save :populate_board, on: :create
  
   def both_players?
@@ -31,6 +32,14 @@ class Game < ApplicationRecord
       color).to_a
   end
 
+  def change_turn
+    if turn == user_id
+      update_attributes(turn: opponent_id)
+    else 
+      update_attributes(turn: user_id)
+    end
+  end
+    
   private
 
   def populate_boundary_pieces(row, color)
@@ -59,6 +68,10 @@ class Game < ApplicationRecord
                           y_position: row,
                           icon: icon)
     end
+  end
+
+  def set_default_turn
+    update_attributes(turn: user_id)
   end
 
 end
