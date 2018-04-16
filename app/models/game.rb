@@ -11,7 +11,29 @@ class Game < ApplicationRecord
   # after_save :populate_board, on: :create
   
   
+  def forfeit(forfeitter)
+    self.set_winner(forfeitter)
+    self.update_game_status("complete")
+  end
   
+  def find_winner_id(loser)
+    players_ids = [self.user_id, self.opponent_id]
+    winner_id = players_ids.find { |player_id| player_id != loser.id }
+    
+    winner_id
+  end
+    
+  def set_winner(loser)
+    winner_id = self.find_winner_id(loser)
+    
+    self.update_attributes(winner_id: winner_id)
+  end
+    
+  def update_game_status(desired_status)
+    self.update_attributes(status: desired_status)
+  end
+    
+    
   
   def populate_board
     Rook.create(game_id: id, x_position: 0, y_position: 0, color: false, icon: "black rook")

@@ -49,16 +49,13 @@ class GamesController < ApplicationController
   
   def forfeit
     @game = Game.find_by_id(params[:id])
-    if current_user.id == @game.user_id
-      @game.update_attributes(winner_id: @game.opponent_id, status: "complete")
-      flash[:notice] = "You've lost. You gave up. We might not let you play again..."
-      redirect_to game_path(@game)
-    elsif current_user.id == @game.opponent_id
-      @game.update_attributes(winner_id: @game.user_id, status: "complete")
-      flash[:notice] = "You've lost. You gave up. We might not let you play again..."
-      redirect_to game_path(@game)
+    if current_user.is_player_in_game?(current_user, @game)
+      current_user.forfeits(@game)
+      puts @game.inspect
+      puts current_user.inspect
+      puts User.find_by_id(@game.opponent_id).inspect
     else
-      render plain: "We couldn't forfeit the game. I guess you could try again if you really want to lose that way."
+      render :plain, "It doesn't look like you are a player in this game. Please go back and try something else."
     end
   end
 
