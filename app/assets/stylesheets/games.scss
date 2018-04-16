@@ -29,12 +29,23 @@
   margin-right: auto;
   text-align: center;
 }
-// .player-box {
-//   border: 1px solid black;
-// }
+.sidebar {
+  height: 100%;
+  padding: 1% 0;
+  border: 5px double brown;
+}
+.player-box {
+  margin-bottom: 10%;
+  border: 1px dotted brown;
+  padding: 5% 0;
+  text-align: center;
+}
 .wins {
   color: LimeGreen;
 }
 .losses {
   color: red;
+}
+.overflow {
+  word-wrap: break-word;
 }

@@ -17,7 +17,7 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
+
       <%= link_to 'Chess', root_path, class: 'navbar-brand' %>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
@@ -48,17 +48,21 @@
       </div>
     </nav>
     <div class="container">
-      <br />
+
       <% if notice.present? %>
+        <br />
         <p class="alert alert-info"><%= notice %></p>
+        <br />
       <% end %>
-      
+
       <% if alert.present? %>
+        <br />
         <p class="alert alert-warning"><%= alert %></p>
+        <br />
       <% end %>
-      <br />
+
     </div>
-    
+
     <%= yield %>
 
     <br />

@@ -2,29 +2,41 @@
 
 <div class="chess-board">
   <div class="padding">
-    <h1 class="title"><%= @game.game_name %></h1>
     <% user = User.find_by_id(@game.user_id) %>
     <% opponent = User.find_by_id(@game.opponent_id) %>
 
     <div class="container">
       <div class="row">
-        <div class="col-sm-2">
-          <% if opponent %>
-            <div class="player-box">
-              <h5><%= opponent.username %>:</h5>
-              <p>W: <span class="wins"><%= opponent.wins %></span> | L: <span class="losses"><%= opponent.losses %></span></p>
-            </div>
-          <% end %>
+        <div class="col-2 sidebar">
+          <h3 class="text-center">Game info</h3>
+          <p class="">Name: <%= @game.game_name %></p>
           <% if user %>
               <div class="player-box">
-                <h5><%= user.username %>:</h5>
-                <p>W: <span class="wins"><%= user.wins %></span> | L: <span class="losses"><%= user.losses %></span></p>
+                <h5 class="overflow"><%= user.username %>:</h5>
+                <span>W: <span class="wins"><%= user.wins %></span> | L: <span class="losses"><%= user.losses %></span></span>
+              </div>
+          <% end %>
+          <% if !user %>
+              <div class="player-box">
+                <h5 class="overflow">Waiting for player</h5>
+              </div>
+          <% end %>
+          <% if opponent %>
+            <div class="player-box">
+              <div class="">
+                <h5 class="overflow"><%= opponent.username %>:</h5>
+                <span>W: <span class="wins"><%= opponent.wins %></span> | L: <span class="losses"><%= opponent.losses %></span></span>
+              </div>
+            </div>
+          <% end %>
+          <% if !opponent %>
+              <div class="player-box">
+                <h5 class="overflow">Waiting for player</h5>
               </div>
           <% end %>
         </div>
 
-        <div class="col-sm-12 col-md-8">
-
+        <div class="col-8">
 
           <table class="board">
             <tr>
