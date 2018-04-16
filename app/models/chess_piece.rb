@@ -66,7 +66,6 @@ class ChessPiece < ApplicationRecord
     end
   end
 
-
   def capture(x, y)
     target_piece = ChessPiece.find_by(x_position: x, y_position: y) # Find opponent piece
 
@@ -127,6 +126,17 @@ class ChessPiece < ApplicationRecord
       return true
     end
     false
+  end
+
+  def is_stalemate?(color, x, y)
+    # White pieces' turn
+   if self.chess_pieces.select {|piece| (piece.color == true) && (piece.valid_move(x, y))}.empty? # && !piece.in_check
+   else
+     false
+   end
+
+   # If the king is not in check and
+   # Player which turn it is, has no pieces with valid moves
   end
 
   def can_threat_be_blocked?
