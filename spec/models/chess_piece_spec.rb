@@ -262,13 +262,10 @@ RSpec.describe ChessPiece, type: :model do
       let!(:king) { FactoryBot.create :king, game: game, user_id: user.id, x_position: 4, y_position: 6, color: true }
 
       it 'updates the coordinates to the location coordinates' do 
-        # binding.pry
-        # binding.pry
-        king.move_to(5,6)
+        king.move_to(5, 6, user)
         expect(king.x_position).to eq(5)
         expect(king.y_position).to eq(6)
         expect(game.turn).to eq user2.id
-
         # expect { king.move_to(5,6) }.to change{king.x_position}.to(5)
         # expect { king.y_position }.to eq(6)
       end
@@ -279,7 +276,7 @@ RSpec.describe ChessPiece, type: :model do
       let!(:pawn) { FactoryBot.create :pawn, game: game, x_position: 5, y_position: 6, color: true }
 
       it 'does not update the coordinates of the king' do 
-        king.move_to(5,6)
+        king.move_to(5, 6, user)
         # binding.pry
         expect(king.x_position).to eq(4)
         expect(king.y_position).to eq(6)
@@ -292,7 +289,7 @@ RSpec.describe ChessPiece, type: :model do
 
       it 'updates the coordinates of the king and deletes the pawn' do 
         # binding.pry
-        king.move_to(5,6)
+        king.move_to(5, 6, user)
         expect(king.x_position).to eq(5)
         expect(king.y_position).to eq(6)
         expect(ChessPiece.find_by(id: pawn.id)).to be_nil
@@ -304,7 +301,7 @@ RSpec.describe ChessPiece, type: :model do
       let!(:king2) { FactoryBot.create :king, user_id: user2.id, game: game, x_position: 5, y_position: 6, color: false }
 
       it 'should not allow the piece to move' do
-        king2.move_to(6,6)
+        king2.move_to(6, 6, user)
         expect(king2.x_position).to eq(5)
         expect(king2.y_position).to eq(6)
       end
