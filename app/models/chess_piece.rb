@@ -38,7 +38,6 @@ class ChessPiece < ApplicationRecord
           end
         end
       end
-
       !@pieces_in_the_way.empty?
 
     elsif x == self.x_position # If target is located vertically - Same row
@@ -51,16 +50,13 @@ class ChessPiece < ApplicationRecord
           end
         end
       end
-
       !@pieces_in_the_way.empty?
 
     elsif (x - self.x_position).abs == (y-self.y_position).abs # If target is located diagonally from starting position
-
       @pieces_in_the_way = self.game.chess_pieces.select do |piece|
         next false if piece == self
         ((x - piece.x_position).abs == (y - piece.y_position).abs) && piece.x_position.between?(x_sorted_array[0], x_sorted_array[1]) && piece.y_position.between?(y_sorted_array[0], y_sorted_array[1])
       end
-
       !@pieces_in_the_way.empty?
 
     else
@@ -140,7 +136,6 @@ class ChessPiece < ApplicationRecord
     king_x_position = king.first.x_position
     king_y_position = king.first.y_position
 
-
     if self.is_diagonal_move?(king_x_position, king_y_position)
       if threat_x_position < king_x_position && threat_y_position < king_y_position # Northwest
         (threat_x_position + 1).upto(king_x_position - 1) do |x|
@@ -154,7 +149,6 @@ class ChessPiece < ApplicationRecord
             end
           end
         end
-
       elsif threat_x_position > king_x_position && threat_y_position < king_y_position # Northeast
         (threat_x_position - 1).downto(king_x_position + 1) do |x|
           (threat_y_position + 1).upto(king_y_position - 1) do |y|

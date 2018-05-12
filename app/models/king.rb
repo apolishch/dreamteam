@@ -10,10 +10,9 @@ class King < ChessPiece
   end
 
   def opponent_pieces
-      my_color = self.color
-      opponent_pieces = self.game.chess_pieces.where(color: !my_color)
-
-      return opponent_pieces
+    my_color = self.color
+    opponent_pieces = self.game.chess_pieces.where(color: !my_color)
+    return opponent_pieces
   end
 
   def can_castle?(x, y)
@@ -36,18 +35,18 @@ class King < ChessPiece
   def pieces_causing_check(x = self.x_position, y = self.y_position)
     pieces_causing_check = []
     self.opponent_pieces.each do |piece|
-        if piece.valid_move?(x, y, self.color)
-            pieces_causing_check << piece
-        end
+      if piece.valid_move?(x, y, self.color)
+        pieces_causing_check << piece
+      end
     end
     return pieces_causing_check
   end
 
   def in_check?
      if (self.pieces_causing_check).empty?
-         false
+        false
      else
-         true
+        true
      end
   end
 
