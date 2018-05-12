@@ -230,10 +230,10 @@ class ChessPiece < ApplicationRecord
     false
   end
 
-  def move_to(x,y)
+  def move_to(x, y, user)
     my_color = self.color
     opponent = self.game.chess_pieces.where(x_position: x, y_position: y, color: !my_color)
-    if valid_move?(x,y) && self.user_id == game.turn
+    if valid_move?(x,y) && self.user_id == game.turn && user.id == self.user_id
       if opponent.present?
         # binding.pry
         self.capture(x,y)
