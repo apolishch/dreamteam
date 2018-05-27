@@ -27,6 +27,10 @@ class GamesController < ApplicationController
       redirect_to game_path(@game)
     elsif @game.opponent_id.nil?
       @game.update_attributes(opponent_id: current_user.id)
+      opponent_pieces = @game.chess_pieces.where(user_id: nil)
+      opponent_pieces.each do |x|
+        x.update_attributes(user_id: current_user.id)
+      end
       redirect_to game_path(@game)
     else
       render plain: 'Couldn\'t join the game. Please try another game', status: :unprocessable_entity

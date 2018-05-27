@@ -101,7 +101,6 @@ RSpec.describe ChessPiece, type: :model do
     let!(:king) {FactoryBot.create(:king, game_id: game.id, x_position: 0, y_position: 0, color: true)}
     let!(:good_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 1, y_position: 2, color: true)}
     let!(:enemy_rook2) {FactoryBot.create(:rook, game_id: game.id, x_position: 0, y_position: 2, color: false)}
-    # let!(:enemy_knight) {FactoryBot.create(:knight, game_id: game.id, x_position: 1, y_position: 2, color: false)}
     let!(:enemy_rook) {FactoryBot.create(:rook, game_id: game.id, x_position: 7, y_position: 3, color: false)}
     let!(:king2) {FactoryBot.create(:king, game_id: game.id, x_position: 7, y_position: 5, color: true)}
     let!(:good_rook2) {FactoryBot.create(:rook, game_id: game.id, x_position: 6, y_position: 7, color: true)}
@@ -263,13 +262,10 @@ RSpec.describe ChessPiece, type: :model do
       let!(:king) { FactoryBot.create :king, game: game, user_id: user.id, x_position: 4, y_position: 6, color: true }
 
       it 'updates the coordinates to the location coordinates' do 
-        # binding.pry
-        # binding.pry
-        king.move_to(5,6)
+        king.move_to(5, 6, user)
         expect(king.x_position).to eq(5)
         expect(king.y_position).to eq(6)
         expect(game.turn).to eq user2.id
-
         # expect { king.move_to(5,6) }.to change{king.x_position}.to(5)
         # expect { king.y_position }.to eq(6)
       end
@@ -280,7 +276,7 @@ RSpec.describe ChessPiece, type: :model do
       let!(:pawn) { FactoryBot.create :pawn, game: game, x_position: 5, y_position: 6, color: true }
 
       it 'does not update the coordinates of the king' do 
-        king.move_to(5,6)
+        king.move_to(5, 6, user)
         # binding.pry
         expect(king.x_position).to eq(4)
         expect(king.y_position).to eq(6)
@@ -293,7 +289,7 @@ RSpec.describe ChessPiece, type: :model do
 
       it 'updates the coordinates of the king and deletes the pawn' do 
         # binding.pry
-        king.move_to(5,6)
+        king.move_to(5, 6, user)
         expect(king.x_position).to eq(5)
         expect(king.y_position).to eq(6)
         expect(ChessPiece.find_by(id: pawn.id)).to be_nil
@@ -305,20 +301,14 @@ RSpec.describe ChessPiece, type: :model do
       let!(:king2) { FactoryBot.create :king, user_id: user2.id, game: game, x_position: 5, y_position: 6, color: false }
 
       it 'should not allow the piece to move' do
-        king2.move_to(6,6)
+        king2.move_to(6, 6, user)
         expect(king2.x_position).to eq(5)
         expect(king2.y_position).to eq(6)
       end
     end
-
   end
 
   describe '#capture' do 
-    # user = FactoryBot.create(:user)
-    # user2 = FactoryBot.create(:user)
-    # sign_in user 
-    # sign_in user2
-    # let(:game) { FactoryBot.create(:game, user_id: 1, opponent_id: 2, turn: 1) }
     let(:game) { FactoryBot.create(:game) }
     let!(:king) { FactoryBot.create(:king, game: game, x_position: 4, y_position: 6, color: true) }
     let!(:capture_pawn) {FactoryBot.create(:pawn, game_id: game.id, x_position: 5, y_position: 6, color: false)}
@@ -339,7 +329,6 @@ RSpec.describe ChessPiece, type: :model do
     end
 
     it 'should do nothing if the piece you are trying to capture is the same color' do
-      # binding.pry
       king.capture(3,6)
       expect(king.x_position).to eq(4)
       expect(king.y_position).to eq(6)

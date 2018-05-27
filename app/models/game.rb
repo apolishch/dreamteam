@@ -22,8 +22,8 @@ class Game < ApplicationRecord
   def populate_board
     populate_boundary_pieces(0, false)
     populate_interior_pieces(1, false)
-    populate_interior_pieces(6, true)
-    populate_boundary_pieces(7, true)
+    populate_interior_pieces(6, true, self.user_id)
+    populate_boundary_pieces(7, true, self.user_id)
   end
 
   def pieces_remaining(color)
@@ -42,7 +42,7 @@ class Game < ApplicationRecord
     
   private
 
-  def populate_boundary_pieces(row, color)
+  def populate_boundary_pieces(row, color, piece_user = nil)
     svgblack = ["br.svg", "bn.svg", "bb.svg", "bq.svg", "bk.svg", "bb.svg", "bn.svg", "br.svg"]
     svgwhite = ["wr.svg", "wn.svg", "wb.svg", "wq.svg", "wk.svg", "wb.svg", "wn.svg", "wr.svg"]
     svg = color ? svgwhite : svgblack
@@ -51,19 +51,21 @@ class Game < ApplicationRecord
       .each_with_index do |klass, index|
         piece = klass.create(game_id: id,
                              color: color,
+                             user_id: piece_user,
                              x_position: index,
                              y_position: row,
                              icon: svg[index])
       end
   end
 
-  def populate_interior_pieces(row, color)
+  def populate_interior_pieces(row, color, piece_user = nil)
     svg = ["wp.svg", "bp.svg"]
     icon = color ? svg[0] : svg[1]
 
     8.times do |index|
       piece = Pawn.create(game_id: id,
                           color: color,
+                          user_id: piece_user,
                           x_position: index,
                           y_position: row,
                           icon: icon)
